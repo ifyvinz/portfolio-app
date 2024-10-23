@@ -5,7 +5,9 @@ import About from './components/About';
 import Portfolio from './components/Portfolio';
 import Contact from './components/Contact';
 import Blog from './components/Blog';
+import BlogDetail from './components/BlogDetail';
 import PortfolioDetail from './components/PortfolioDetail';
+import Services from './components/Services';
 
 function App() {
     return (
@@ -13,16 +15,21 @@ function App() {
             <nav>
                 <Link to="/">About</Link>
                 <Link to="/portfolio">Portfolio</Link>
+                <Link to="/services">Services</Link>
                 <Link to="/contact">Contact</Link>
                 <Link to="/blog">Blog</Link>
             </nav>
-            <Routes>
-                <Route path="/" element={<About />} />
-                <Route path="/portfolio" element={<Portfolio />} />
-                <Route path="/portfolio/:id" element={<PortfolioDetail />} />
-                <Route path="/contact" element={<Contact />} />
-                <Route path="/blog" element={<Blog />} />
-            </Routes>
+            <div className="container">
+                <Routes>
+                    <Route path="/" element={<About />} />
+                    <Route path="/portfolio" element={<Portfolio />} />
+                    <Route path="/portfolio/:id" element={<PortfolioDetail />} />
+                    <Route path="/services" element={<Services />} />
+                    <Route path="/contact" element={<Contact />} />
+                    <Route path="/blog" element={<Blog />} />
+                    <Route path="/blog/:id" element={<BlogDetail />} />
+                </Routes>
+            </div>
         </Router>
     );
 }

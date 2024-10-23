@@ -1,3 +1,4 @@
+import '../PortfolioDetail.css'
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';  // Hook to get URL parameters
 import instance from '../axiosInstance';  // axios instance for API calls

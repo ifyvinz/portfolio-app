@@ -1,3 +1,4 @@
+import '../Portfolio.css';
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';  // Import Link for navigation
 import instance from '../axiosInstance';  // axios instance for API calls

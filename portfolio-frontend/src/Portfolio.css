@@ -1,0 +1,152 @@
+/* General Styles */
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f0f4f8;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+}
+
+section {
+    padding: 4rem 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+h1 {
+    font-size: 3rem;
+    color: #333;
+    margin-bottom: 1rem;
+    text-align: center;
+    opacity: 0;
+    animation: fadeInDown 1s ease-out forwards;
+}
+
+p {
+    font-size: 1.2rem;
+    color: #666;
+    margin-bottom: 2rem;
+    text-align: center;
+    opacity: 0;
+    animation: fadeInUp 1.2s ease-out forwards;
+}
+
+/* Portfolio List */
+ul {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    list-style-type: none;
+    padding: 0;
+    opacity: 0;
+    animation: fadeInUp 1.5s ease-out forwards;
+}
+
+li {
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    overflow: hidden;
+    animation: scaleUp 1s ease-out forwards;
+    opacity: 0;
+}
+
+li:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+}
+
+h2 {
+    font-size: 1.5rem;
+    color: #282c34;
+    margin-bottom: 1rem;
+}
+
+p {
+    font-size: 1rem;
+    color: #444;
+    margin-bottom: 1.5rem;
+}
+
+/* Image Styling */
+img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    transition: transform 0.3s ease;
+}
+
+li:hover img {
+    transform: scale(1.05);
+}
+
+/* Link Styling */
+a {
+    display: inline-block;
+    text-decoration: none;
+    color: #61dafb;
+    background-color: transparent;
+    padding: 0.5rem 1rem;
+    border: 2px solid #61dafb;
+    border-radius: 6px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+a:hover {
+    background-color: #61dafb;
+    color: #fff;
+}
+
+/* Animations */
+@keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInDown {
+    0% {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes scaleUp {
+    0% {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    ul {
+        grid-template-columns: 1fr;
+    }
+
+    h1 {
+        font-size: 2.5rem;
+    }
+
+    p {
+        font-size: 1rem;
+    }
+}

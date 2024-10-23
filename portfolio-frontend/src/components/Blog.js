@@ -1,4 +1,6 @@
+import '../Blog.css'
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';  // Import Link for navigation
 import instance from '../axiosInstance';  // import  axios instance from axioInstance.js to set up for API calls
 
 function Blog() {
@@ -26,6 +28,10 @@ function Blog() {
                         
                         {/* Render markdown content as HTML */}
                         <div dangerouslySetInnerHTML={{ __html: blog.content }} />
+
+                        {/* Link to the blog detailed page */}
+                        
+                        <Link to={`/blog/${blog.id}`}>Read More</Link>
                     </li>
                 ))}
             </ul>

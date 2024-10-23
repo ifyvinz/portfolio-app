@@ -19,7 +19,7 @@ from django.views.decorators.csrf import csrf_exempt
 # Profile Views
 @api_view(['GET'])
 def profile_detail(request):
-    profile = Profile.objects.first()  # Assuming you only have one profile.
+    profile = Profile.objects.first()  # .fist because i only have one profile.
     if profile:
         serializer = ProfileSerializer(profile)
         return Response(serializer.data)
@@ -36,6 +36,8 @@ def blogpost_list(request):
 def blogpost_detail(request, pk):
     post = get_object_or_404(BlogPost, pk=pk)
     serializer = BlogPostSerializer(post)
+    print(post.created_at)
+    #print(serializer.data.created_at)
     return Response(serializer.data)
 
 # Contact Views
