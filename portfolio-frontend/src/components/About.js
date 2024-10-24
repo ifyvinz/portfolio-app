@@ -35,6 +35,8 @@ function About() {
                 {/* Markdown content rendered as HTML */}
                 <div className="about-content" dangerouslySetInnerHTML={{ __html: profile.about }} />
 
+
+
                 {/* Social links */}
                 <div className="social-links">
                     {profile.github && (

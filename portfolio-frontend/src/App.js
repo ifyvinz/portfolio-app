@@ -1,5 +1,5 @@
 import './App.css';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import About from './components/About';
 import Portfolio from './components/Portfolio';
@@ -10,6 +10,16 @@ import PortfolioDetail from './components/PortfolioDetail';
 import Services from './components/Services';
 
 function App() {
+    const [theme, setTheme] = useState('dark');
+
+    useEffect(() => {
+        document.body.className = theme; // Set body class to light or dark
+    }, [theme]);
+
+    const toggleTheme = () => {
+        setTheme(theme === 'light' ? 'dark' : 'light');
+    };
+
     return (
         <Router>
             <nav>
@@ -18,6 +28,9 @@ function App() {
                 <Link to="/services">Services</Link>
                 <Link to="/contact">Contact</Link>
                 <Link to="/blog">Blog</Link>
+                <button onClick={toggleTheme} className="theme-toggle-btn">
+                    {theme === 'light' ? '🌙 Dark Mode' : '☀️ Light Mode'}
+                </button>
             </nav>
             <div className="container">
                 <Routes>
