@@ -14,8 +14,8 @@ function Blog() {
     }, []);  // The empty dependency array means this effect runs only once when the component mounts
 
     return (
-        <section>
-            <h1>Blog</h1>
+        <section className='blog-section'>
+            <h1 className='blog-header'>📝 Blog</h1>
             <ul>
                 {blogs.map(blog => (
                     <li key={blog.id}>

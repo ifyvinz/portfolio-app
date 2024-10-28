@@ -16,20 +16,70 @@ body.dark {
 /* Navbar Styling */
 nav {
   display: flex;
-  justify-content: center;
+  justify-content: space-between; /* Space between sections */
   align-items: center;
   padding: 1rem 2rem;
   border-radius: 8px;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
 }
 
-/* Text color changes based on theme */
-body.light nav a {
-  color: #333; /* Darker text for light background */
+/* Left Section for Vincent Link */
+.nav-left {
+  flex: 1;
+  display: flex;
+  justify-content: flex-start;
 }
 
-body.dark nav a {
-  color: #e0e0e0; /* Lighter text for dark background */
+.nav-left a {
+  font-weight: bold;
+  font-size: 1.4rem;
+  color: inherit; /* Inherit color from theme */
+  text-decoration: none;
+}
+/* Center Section for Other Links */
+.nav-center {
+  flex: 2;
+  display: flex;
+  justify-content: center;
+}
+
+.nav-center a {
+  margin: 0 1rem;
+  font-size: 1.2rem;
+  transition: color 0.3s ease, border-bottom-color 0.3s ease;
+  border: none;
+  padding-bottom: 0.2rem;
+  border-bottom: 2px solid transparent;
+  text-decoration: none;
+}
+
+/* Border-bottom color changes based on theme */
+body.light .nav-center a {
+  color: #333;
+  border-bottom-color: #333;
+}
+
+body.dark .nav-center a {
+  color: #e0e0e0;
+  border-bottom-color: #e0e0e0;
+}
+
+body.light .nav-center a:hover {
+  background-color: #333;
+  color: #dddde0;
+}
+
+body.dark .nav-center a:hover {
+  background-color: #2b3041;
+  color: #dddde0;
+}
+
+
+/* Right Section for Theme Toggle Button */
+.nav-right {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
 }
 
 nav a {
@@ -39,10 +89,27 @@ nav a {
   border: none;
   padding-bottom: 0.2rem;
   border-bottom: 2px solid transparent;
+  text-decoration: none;
 }
 
-nav a:hover {
-  color: #545455; /* Subtle hover color */
+
+/* Text color changes based on theme */
+body.light nav a {
+  color: #333;
+}
+
+body.dark nav a {
+  color: #e0e0e0;
+}
+
+body.light nav a:hover {
+  background-color: #333;
+  color: #dddde0;
+}
+
+body.dark nav a:hover {
+  background-color: #2b3041;
+  color: #dddde0;
 }
 
 /* Theme toggle button styling */
@@ -59,14 +126,20 @@ body.light .theme-toggle-btn {
   color: #333;
 }
 
-/* Dark theme button color */
 body.dark .theme-toggle-btn {
   color: #e0e0e0;
 }
 
-.theme-toggle-btn:hover {
-  color: #21a1f1;
+body.light .theme-toggle-btn:hover {
+  background-color: #333;
+  color: #dddde0;
 }
+
+body.dark .theme-toggle-btn:hover {
+  background-color: #21a1f1;
+  color: #dddde0;
+}
+
 
 /* Container Styling */
 .container {

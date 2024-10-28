@@ -9,7 +9,9 @@ from portfolio import views
 from markdownx import urls as markdownx_urls
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    #path('admin/', admin.site.urls),
+    path("login/", views.login_view, name="login"),
+    #path("logout/", views.logout_view, name="logout"),
     path('profile/', views.profile_detail, name='profile-detail'),
     path('blogposts/', views.blogpost_list, name='blogpost-list'),
     path('blogposts/<int:pk>/', views.blogpost_detail, name='blogpost-detail'),
@@ -20,6 +22,10 @@ urlpatterns = [
     path('services/<int:pk>/', views.service_detail, name='service-detail'),
     path('send-email/', views.send_contact_email, name='send-email'),
     path('markdownx/', include(markdownx_urls)),
+    path('create_portfolio/', views.create_portfolio, name='create_portfolio'),
+    path('delete_portfolio/<int:pk>/', views.delete_portfolio, name='delete_portfolio'),
+    path('create_blog/', views.create_blog, name='create_blog'),
+    path('delete_blog/<int:pk>/', views.delete_blog, name='delete_blog'),
 ]
 
 if settings.DEBUG:

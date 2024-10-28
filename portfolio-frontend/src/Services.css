@@ -3,12 +3,20 @@
     background-color: #f9f9f9;  /* Light background for contrast */
 }
 
-.service-section h1 {
+body.light.service-section .service-header {
     text-align: center;
     font-size: 2.5rem;
     color: #333;
     margin-bottom: 2rem;
 }
+
+body.dark .service-section .service-header{
+    text-align: center;
+    font-size: 2.5rem;
+    color: #d6d5d5;
+    margin-bottom: 2rem;
+}
+
 
 .service-list {
     display: grid;  /* Use CSS Grid for a responsive layout */

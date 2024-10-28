@@ -1,7 +1,10 @@
 from django.contrib import admin
-from .models import Profile, BlogPost, Contact, Portfolio, Service
+from .models import Profile, BlogPost, Contact, Portfolio, Service, User
 
 # Register your models here.
+
+
+admin.site.register(User)
 admin.site.register(Profile)
 admin.site.register(BlogPost)
 admin.site.register(Contact)

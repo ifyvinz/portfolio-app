@@ -27,6 +27,16 @@ h1 {
     animation: fadeInDown 1s forwards;
 }
 
+body.dark section .contact-header{
+    font-size: 2.5rem;
+    color: #b7b8b9;
+    margin-bottom: 2rem;
+    text-align: center;
+    opacity: 0;
+    transform: translateY(-20px);
+    animation: fadeInDown 1s forwards;
+}
+
 /* Form styling */
 form {
     display: flex;

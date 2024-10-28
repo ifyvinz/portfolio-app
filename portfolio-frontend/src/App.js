@@ -8,9 +8,13 @@ import Blog from './components/Blog';
 import BlogDetail from './components/BlogDetail';
 import PortfolioDetail from './components/PortfolioDetail';
 import Services from './components/Services';
+import Footer from'./components/Footer';
+import CreateBlog from './components/CreateBlog';
+import CreatePortfolio from './components/CreatePortfolio'
+import Login from './components/login';
 
 function App() {
-    const [theme, setTheme] = useState('dark');
+    const [theme, setTheme] = useState('light');
 
     useEffect(() => {
         document.body.className = theme; // Set body class to light or dark
@@ -23,15 +27,23 @@ function App() {
     return (
         <Router>
             <nav>
-                <Link to="/">About</Link>
-                <Link to="/portfolio">Portfolio</Link>
-                <Link to="/services">Services</Link>
-                <Link to="/contact">Contact</Link>
-                <Link to="/blog">Blog</Link>
-                <button onClick={toggleTheme} className="theme-toggle-btn">
-                    {theme === 'light' ? '🌙 Dark Mode' : '☀️ Light Mode'}
-                </button>
+                <div className="nav-left">
+                    <Link to="/">ifyvinz</Link>
+                </div>
+                <div className="nav-center">
+                    <Link to="/">About</Link>
+                    <Link to="/portfolio">Portfolio</Link>
+                    <Link to="/services">Services</Link>
+                    <Link to="/contact">Contact</Link>
+                    <Link to="/blog">Blog</Link>
+                </div>
+                <div className="nav-right">
+                    <button onClick={toggleTheme} className="theme-toggle-btn">
+                        {theme === 'light' ? '🌙 Dark Mode' : '☀️ Light Mode'}
+                    </button>
+                </div>
             </nav>
+
             <div className="container">
                 <Routes>
                     <Route path="/" element={<About />} />
@@ -41,8 +53,13 @@ function App() {
                     <Route path="/contact" element={<Contact />} />
                     <Route path="/blog" element={<Blog />} />
                     <Route path="/blog/:id" element={<BlogDetail />} />
+                    <Route path="/login" element={<Login />} />
+                    <Route path="/create-blog" element={<CreateBlog />} />
+                    <Route path="/create-portfolio" element={<CreatePortfolio />} />
                 </Routes>
             </div>
+
+            <Footer />
         </Router>
     );
 }

@@ -14,7 +14,7 @@ function Services() {
 
     return (
         <section className="service-section">
-            <h1>Our Services</h1>
+            <h1 className='service-header'>🛠️ Our Services</h1>
             <div className="service-list">
                 {services.map(service => (
                     <div className="service-item" key={service.id}>

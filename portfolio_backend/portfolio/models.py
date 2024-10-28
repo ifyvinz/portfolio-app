@@ -7,6 +7,9 @@ from django.utils.safestring import mark_safe
 from markdownx.models import MarkdownxField
 
 # Create your models here.
+class User(AbstractUser):
+    pass
+   
 
 class Profile(models.Model):
     #about = models.TextField(blank=True, null=True)
@@ -31,6 +34,9 @@ class BlogPost(models.Model):
     #content = models.TextField()  # Main content of the blog post, using a TextField for long text.
     content = MarkdownxField()  # Markdown content field
     created_at = models.DateTimeField(auto_now_add=True)  # Timestamp for when the post is created, automatically set.
+
+    class Meta:
+        ordering = ['-created_at']
 
     def __str__(self):
          return f"Title: {self.title}\nCreated At: {self.created_at}\ncontent: {self.content}\n"

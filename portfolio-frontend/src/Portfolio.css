@@ -1,20 +1,30 @@
 /* General Styles */
-body {
+/*body {
     font-family: 'Roboto', sans-serif;
     background-color: #f0f4f8;
     color: #333;
     margin: 0;
     padding: 0;
     line-height: 1.6;
-}
+}*/
 
 section {
     padding: 4rem 2rem;
     display: flex;
     flex-direction: column;
     align-items: center;
+    background-color: transparent; /* Remove border background */
+    transition: background-color 0.5s ease, color 0.5s ease; /* Smooth transition for theme changes */
 }
 
+body.dark section .portfolio-header{
+    font-size: 3rem;
+    color: #a8a5a5;
+    margin-bottom: 1rem;
+    text-align: center;
+    opacity: 0;
+    animation: fadeInDown 1s ease-out forwards;
+}
 h1 {
     font-size: 3rem;
     color: #333;
@@ -33,6 +43,18 @@ p {
     animation: fadeInUp 1.2s ease-out forwards;
 }
 
+/* Light Theme Section */
+body.light section {
+    background-color: #f0f4f8; /* Light background for section */
+    color: #333; /* Darker text for readability */
+}
+
+/* Dark Theme Section */
+body.dark section {
+    background-color: #2c3e50; /* Darker background for section */
+    color: #e0e0e0; /* Lighter text for readability */
+}
+
 /* Portfolio List */
 ul {
     display: grid;
@@ -42,6 +64,23 @@ ul {
     padding: 0;
     opacity: 0;
     animation: fadeInUp 1.5s ease-out forwards;
+}
+
+/* Light Theme Portfolio Items */
+body.light li {
+    background-color: #ffffff; /* White background for light theme */
+    color: #333; /* Dark text */
+}
+
+/* Dark Theme Portfolio Items */
+body.dark li {
+    background-color: #34495e; /* Darker background for dark theme */
+    color: #e0e0e0; /* Light text */
+}
+
+/* Targeting nested p and strong tags */
+body.dark li h2, body.dark li p, body.dark li img, body.dark li a {
+    color: inherit; /* Inherit color from the parent */
 }
 
 li {
@@ -60,11 +99,7 @@ li:hover {
     box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
 }
 
-h2 {
-    font-size: 1.5rem;
-    color: #282c34;
-    margin-bottom: 1rem;
-}
+
 
 p {
     font-size: 1rem;
@@ -97,10 +132,6 @@ a {
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-a:hover {
-    background-color: #61dafb;
-    color: #fff;
-}
 
 /* Animations */
 @keyframes fadeInUp {

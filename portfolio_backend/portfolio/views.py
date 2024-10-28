@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
-from .models import Profile, BlogPost, Contact, Portfolio, Service
+from .models import Profile, BlogPost, Contact, Portfolio, Service, User
 from .serializers import (
     ProfileSerializer,
     BlogPostSerializer,
@@ -10,11 +10,59 @@ from .serializers import (
     PortfolioSerializer,
     ServiceSerializer,
 )
+from django.contrib.auth import authenticate, login, logout
 from django.core.mail import send_mail
 from django.conf import settings
 from django.views.decorators.csrf import csrf_exempt
+import json
+from rest_framework.authtoken.models import Token
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.decorators import permission_classes, authentication_classes
+from rest_framework.authentication import TokenAuthentication
+from rest_framework.permissions import AllowAny
+#from django.http import JsonRespons
+
 
 #logger = logging.getLogger(__name__)
+@api_view(['POST'])
+@authentication_classes([TokenAuthentication])
+@permission_classes([AllowAny])
+def login_view(request):
+    if request.method != "POST":
+        return Response({'errors': "Method not allowed."}, status=405)
+    
+    data = json.loads(request.body)
+    username = data.get("username", "")
+    password = data.get("password", "")
+
+    try:
+        user = User.objects.get(username=username)
+    except User.DoesNotExist:
+        return Response({'error': 'Invalid username or password'}, status=401)
+
+    user = authenticate(request, username=user.username, password=password)
+    if user is not None:
+        token, created = Token.objects.get_or_create(user=user)
+        login(request, user)
+        response = {
+            'token': token.key, 
+            'message': f"You are now logged in as {username}.",
+            'username': username
+        }
+        return Response(response, status=200)
+    else:
+        return Response({'error': 'Invalid username or password'}, status=401)
+
+                    
+"""                   
+@api_view(['POST'])
+@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])      
+def logout_view(request):
+    Token.objects.filter(user=request.user).delete()
+    return JsonResponse({'message': 'User logged out successfully'})
+"""
+
 
 # Profile Views
 @api_view(['GET'])
@@ -105,3 +153,39 @@ def send_contact_email(request):
         return Response({"success": "Email sent successfully"}, status=status.HTTP_200_OK)
     except Exception as e:
         return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+@api_view(['POST'])
+def create_portfolio(request):
+    serializer = PortfolioSerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['DELETE'])
+def delete_portfolio(request, pk):
+    try:
+        portfolio = Portfolio.objects.get(pk=pk)
+        portfolio.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+    except Portfolio.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+        
+@api_view(['POST'])
+def create_blog(request):
+    serializer = BlogPostSerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+    print(serializer.errors)  # Print validation errors to console
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['DELETE'])
+def delete_blog(request, pk):
+    try:
+        blog_post = BlogPost.objects.get(pk=pk)
+        blog_post.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+    except BlogPost.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+

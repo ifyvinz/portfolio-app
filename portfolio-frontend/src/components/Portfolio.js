@@ -15,8 +15,8 @@ function Portfolio() {
 
     return (
         <section>
-            <h1>Portfolio</h1>
-            <p>Here are some of my projects...</p>
+            <h1 className='portfolio-header'>💼 Portfolio</h1>
+            {/*<p>Here are some of my projects...</p>*/}
             <ul>
                 {portfolios.map(portfolio => (
                     <li key={portfolio.id}>

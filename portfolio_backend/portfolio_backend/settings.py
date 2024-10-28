@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'rest_framework',
     'markdownx',
+    'rest_framework.authtoken',
     
 ]
 
@@ -86,6 +87,9 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'portfolio_backend.wsgi.application'
+
+AUTH_USER_MODEL = 'portfolio.User'
+
 
 
 # Database

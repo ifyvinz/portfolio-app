@@ -1,5 +1,13 @@
 from rest_framework import serializers
-from .models import Profile, BlogPost, Contact, Portfolio, Service
+from .models import Profile, BlogPost, Contact, Portfolio, Service, User
+
+class UserSerializer(serializers.ModelSerializer):
+    
+    date_joined = serializers.DateTimeField(format="%I:%M %p, %a %d %B %Y")
+    class Meta:
+        model = User
+        fields = ['id', 'username', 'email']
+
 
 class ProfileSerializer(serializers.ModelSerializer):
     about = serializers.SerializerMethodField()  # Handle markdown rendering
@@ -14,10 +22,10 @@ class ProfileSerializer(serializers.ModelSerializer):
         # Convert markdown to HTML using the get_about method
         return obj.get_about()
 
-
+"""
 class BlogPostSerializer(serializers.ModelSerializer):
     content = serializers.SerializerMethodField()  # Handle markdown rendering
-    created_at = serializers.DateTimeField(format="%I:%M %p, %a %d %B %Y")  # Custom date formatting
+    created_at = serializers.DateTimeField(format="%I:%M %p, %a %d %B %Y", read_only=True)  # Custom date formatting
 
     class Meta:
         model = BlogPost
@@ -26,6 +34,13 @@ class BlogPostSerializer(serializers.ModelSerializer):
     def get_content(self, obj):
         # Convert markdown to HTML using the get_content method
         return obj.get_content()
+"""
+class BlogPostSerializer(serializers.ModelSerializer):
+    created_at = serializers.DateTimeField(format="%I:%M %p, %a %d %B %Y", read_only=True)
+
+    class Meta:
+        model = BlogPost
+        fields = ['id', 'title', 'photo', 'content', 'created_at']
 
 
 class ContactSerializer(serializers.ModelSerializer):
