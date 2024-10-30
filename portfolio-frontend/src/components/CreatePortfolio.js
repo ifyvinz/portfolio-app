@@ -4,7 +4,7 @@ import '../CreatePortfolio.css';
 
 const CreatePortfolio = () => {
     const [title, setTitle] = useState('');
-    const [description, setDescription] = useState('');
+    const [discription, setDiscription] = useState(''); // Update to match backend
     const [photo, setPhoto] = useState(null);
     const [website, setWebsite] = useState('');
     const [github, setGithub] = useState('');
@@ -13,14 +13,14 @@ const CreatePortfolio = () => {
         e.preventDefault();
         const formData = new FormData();
         formData.append('title', title);
-        formData.append('description', description);
+        formData.append('discription', discription); // Updated to match backend
         formData.append('photo', photo);
         formData.append('website', website);
         formData.append('github', github);
 
         try {
             const token = localStorage.getItem('token');
-            await axios.post('create_portfolio/', formData, {
+            await axios.post('/create_portfolio/', formData, {
                 headers: {
                     'Authorization': `Token ${token}`,
                     'Content-Type': 'multipart/form-data'
@@ -44,8 +44,8 @@ const CreatePortfolio = () => {
                     required 
                 />
                 <textarea 
-                    value={description} 
-                    onChange={(e) => setDescription(e.target.value)} 
+                    value={discription} 
+                    onChange={(e) => setDiscription(e.target.value)} 
                     placeholder="Description" 
                     required 
                 />

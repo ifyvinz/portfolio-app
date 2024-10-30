@@ -52,7 +52,7 @@ class ContactSerializer(serializers.ModelSerializer):
 
 
 class PortfolioSerializer(serializers.ModelSerializer):
-    discription = serializers.SerializerMethodField()  # Handle markdown rendering
+    #discription = serializers.SerializerMethodField()  # Handle markdown rendering
     photo = serializers.ImageField()
 
     class Meta:

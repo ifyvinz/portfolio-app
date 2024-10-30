@@ -79,7 +79,7 @@ body.dark li {
 }
 
 /* Targeting nested p and strong tags */
-body.dark li h2, body.dark li p, body.dark li img, body.dark li a {
+body.dark section li h2, body.dark section li p, body.dark li img, body.dark section li a {
     color: inherit; /* Inherit color from the parent */
 }
 
