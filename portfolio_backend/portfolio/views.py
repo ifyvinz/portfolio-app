@@ -73,6 +73,21 @@ def profile_detail(request):
         return Response(serializer.data)
     return Response({"error": "Profile not found"}, status=status.HTTP_404_NOT_FOUND)
 
+#@csrf_exempt  # Add this decorator temporarily for testing
+@api_view(['PUT'])
+#@permission_classes([IsAuthenticated])
+def edit_profile(request):
+    try:
+        profile = Profile.objects.first()  # Becacuse i only have  one profile instance
+        serializer = ProfileSerializer(profile, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    except Profile.DoesNotExist:
+        return Response({"error": "Profile not found"}, status=status.HTTP_404_NOT_FOUND)
+
+
 # BlogPost Views
 @api_view(['GET'])
 def blogpost_list(request):
@@ -170,7 +185,7 @@ def delete_portfolio(request, pk):
         return Response(status=status.HTTP_204_NO_CONTENT)
     except Portfolio.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
-        
+
 @api_view(['POST'])
 def create_blog(request):
     serializer = BlogPostSerializer(data=request.data)

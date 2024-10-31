@@ -24,6 +24,7 @@ function Footer() {
                     )}
                     {isLoggedIn && (
                         <>
+                            <Link to="/edit-profile" className="footer-link">Edit Profile</Link>
                             <Link to="/create-blog" className="footer-link">Create Blog</Link>
                             <Link to="/create-portfolio" className="footer-link">Create Portfolio</Link>
                             <button onClick={handleLogout} className="footer-button">Logout</button>

@@ -1,0 +1,68 @@
+/* EditProfile.css */
+
+.edit-profile-container {
+  display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    min-height: 100vh; /* Make sure the container takes the full height */
+    padding: 20px; /* Optional: Add some padding */
+}
+
+.edit-profile-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.edit-profile-form textarea,
+.edit-profile-form input {
+    margin-bottom: 1rem;
+    padding: 0.8rem;
+    font-size: 1rem;
+    border: 1px solid var(--input-border);
+    border-radius: 5px;
+    color: inherit;
+    background-color: var(--input-background);
+    transition: border-color 0.3s ease;
+}
+
+.edit-profile-form textarea:focus,
+.edit-profile-form input:focus {
+    border-color: var(--focus-border);
+}
+
+.edit-profile-form button {
+    padding: 0.8rem;
+    font-size: 1.1rem;
+    border: none;
+    border-radius: 5px;
+    background-color: var(--button-background);
+    color: var(--button-text);
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.edit-profile-form button:hover {
+    background-color: var(--button-hover);
+}
+
+/* Light Theme Variables */
+body.light {
+    --container-background: #f3f4f7;
+    --input-border: #ccc;
+    --input-background: #fff;
+    --focus-border: #333;
+    --button-background: #333;
+    --button-text: #dddde0;
+    --button-hover: #444;
+}
+
+/* Dark Theme Variables */
+body.dark {
+    --container-background: #2c3e50;
+    --input-border: #666;
+    --input-background: #34495e;
+    --focus-border: #e0e0e0;
+    --button-background: #e0e0e0;
+    --button-text: #333;
+    --button-hover: #ddd;
+}

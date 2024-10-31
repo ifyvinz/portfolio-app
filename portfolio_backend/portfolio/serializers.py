@@ -1,5 +1,7 @@
 from rest_framework import serializers
 from .models import Profile, BlogPost, Contact, Portfolio, Service, User
+from django.utils.safestring import mark_safe
+import markdown
 
 class UserSerializer(serializers.ModelSerializer):
     
@@ -20,7 +22,7 @@ class ProfileSerializer(serializers.ModelSerializer):
 
     def get_about(self, obj):
         # Convert markdown to HTML using the get_about method
-        return obj.get_about()
+        return mark_safe(markdown.markdown(obj.about))
 
 """
 class BlogPostSerializer(serializers.ModelSerializer):

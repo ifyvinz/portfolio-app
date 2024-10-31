@@ -9,12 +9,14 @@ import BlogDetail from './components/BlogDetail';
 import PortfolioDetail from './components/PortfolioDetail';
 import Services from './components/Services';
 import Footer from'./components/Footer';
+import EditProfile from './components/EditProfile';
 import CreateBlog from './components/CreateBlog';
 import CreatePortfolio from './components/CreatePortfolio'
+import LandingPage from './components/LandingPage';
 import Login from './components/login';
 
 function App() {
-    const [theme, setTheme] = useState('light');
+    const [theme, setTheme] = useState('dark');
 
     useEffect(() => {
         document.body.className = theme; // Set body class to light or dark
@@ -28,10 +30,10 @@ function App() {
         <Router>
             <nav>
                 <div className="nav-left">
-                    <Link to="/">ifyvinz</Link>
+                    <Link to="/">Vincent.</Link>
                 </div>
                 <div className="nav-center">
-                    <Link to="/">About</Link>
+                    <Link to="/about">About</Link>
                     <Link to="/portfolio">Portfolio</Link>
                     <Link to="/services">Services</Link>
                     <Link to="/contact">Contact</Link>
@@ -46,7 +48,8 @@ function App() {
 
             <div className="container">
                 <Routes>
-                    <Route path="/" element={<About />} />
+                    <Route path='/' element={<LandingPage />} />
+                    <Route path="/about" element={<About />} />
                     <Route path="/portfolio" element={<Portfolio />} />
                     <Route path="/portfolio/:id" element={<PortfolioDetail />} />
                     <Route path="/services" element={<Services />} />
@@ -54,6 +57,7 @@ function App() {
                     <Route path="/blog" element={<Blog />} />
                     <Route path="/blog/:id" element={<BlogDetail />} />
                     <Route path="/login" element={<Login />} />
+                    <Route path='/edit-profile' element={<EditProfile />} />
                     <Route path="/create-blog" element={<CreateBlog />} />
                     <Route path="/create-portfolio" element={<CreatePortfolio />} />
                 </Routes>
