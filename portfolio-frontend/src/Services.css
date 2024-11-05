@@ -1,55 +1,83 @@
+/* Service Section Styling */
 .service-section {
-    padding: 2rem 1rem;
-    background-color: #f9f9f9;  /* Light background for contrast */
-}
-
-body.light.service-section .service-header {
+    max-width: 1000px;
+    margin: 4rem auto;
+    padding: 2rem;
     text-align: center;
-    font-size: 2.5rem;
-    color: #333;
-    margin-bottom: 2rem;
+    transition: background-color 0.5s ease, color 0.5s ease;
 }
 
-body.dark .service-section .service-header{
-    text-align: center;
+/* Service Header */
+.service-header {
+    font-family: 'Playfair Display', serif;
     font-size: 2.5rem;
-    color: #d6d5d5;
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
+    transition: color 0.5s ease;
 }
 
-
+/* Service List Styling */
 .service-list {
-    display: grid;  /* Use CSS Grid for a responsive layout */
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));  /* Responsive grid items */
-    gap: 1.5rem;  /* Space between grid items */
-    padding: 0 1rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
 }
 
+/* Service Item Styling */
 .service-item {
-    background-color: #fff;  /* White background for service items */
-    border-radius: 8px;  /* Rounded corners */
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);  /* Subtle shadow for depth */
-    overflow: hidden;  /* Clip content that overflows */
-    transition: transform 0.3s ease;  /* Animation for hover effect */
+    padding: 1.5rem;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.5s ease, color 0.5s ease;
 }
 
-.service-item:hover {
-    transform: translateY(-5px);  /* Lift effect on hover */
-}
-
+/* Service Photo */
 .service-photo {
-    width: 100%;  /* Responsive image */
-    height: auto;  /* Maintain aspect ratio */
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    transition: transform 0.3s ease;
 }
 
-.service-item h2 {
-    font-size: 1.5rem;
-    color: #007BFF;  /* Bootstrap primary color */
-    padding: 1rem;
+.service-photo:hover {
+    transform: scale(1.05);
 }
 
+/* Service Content */
 .service-content {
-    padding: 0 1rem 1rem;  /* Padding for content */
-    color: #555;  /* Dark grey for text */
-    font-size: 1rem;  /* Base font size */
+    font-family: 'Lora', serif;
+    font-size: 1rem;
+    line-height: 1.6;
+    transition: color 0.5s ease;
+}
+
+/* Light Theme */
+body.light .service-section {
+    background-color: #f4f4f7;
+    color: #333;
+}
+
+body.light .service-header {
+    color: #333;
+}
+
+body.light .service-item {
+    background-color: #fff;
+    color: #333;
+}
+
+/* Dark Theme */
+body.dark .service-section {
+    background-color: #2c3e50;
+    color: #e0e0e0;
+}
+
+body.dark .service-header {
+    color: #e0e0e0;
+}
+
+body.dark .service-item {
+    background-color: #3a4b59;
+    color: #e0e0e0;
 }

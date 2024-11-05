@@ -27,6 +27,7 @@ urlpatterns = [
     path('delete_portfolio/<int:pk>/', views.delete_portfolio, name='delete_portfolio'),
     path('create_blog/', views.create_blog, name='create_blog'),
     path('delete_blog/<int:pk>/', views.delete_blog, name='delete_blog'),
+    path('create_service/', views.create_service, name='create_service'),
 ]
 
 if settings.DEBUG:

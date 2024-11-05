@@ -13,6 +13,7 @@ import EditProfile from './components/EditProfile';
 import CreateBlog from './components/CreateBlog';
 import CreatePortfolio from './components/CreatePortfolio'
 import LandingPage from './components/LandingPage';
+import CreateService from './components/CreateService';
 import Login from './components/login';
 
 function App() {
@@ -60,6 +61,7 @@ function App() {
                     <Route path='/edit-profile' element={<EditProfile />} />
                     <Route path="/create-blog" element={<CreateBlog />} />
                     <Route path="/create-portfolio" element={<CreatePortfolio />} />
+                    <Route path="/create-service" element={<CreateService />} />
                 </Routes>
             </div>
 

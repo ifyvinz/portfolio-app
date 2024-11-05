@@ -1,7 +1,7 @@
-import '../Blog.css'
+import '../Blog.css';
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';  // Import Link for navigation
-import instance from '../axiosInstance';  // import  axios instance from axioInstance.js to set up for API calls
+import instance from '../axiosInstance';  // import axios instance from axiosInstance.js to set up for API calls
 
 function Blog() {
     const [blogs, setBlogs] = useState([]);  // State to hold blog posts
@@ -16,25 +16,24 @@ function Blog() {
     return (
         <section className='blog-section'>
             <h1 className='blog-header'>📝 Blog</h1>
-            <ul>
+            <div className='blog-list'>
                 {blogs.map(blog => (
-                    <li key={blog.id}>
+                    <div key={blog.id} className='blog-card'>
                         <h2>{blog.title}</h2>
                         
-                        {/* Display blog photo if available */}
-                        {blog.photo && (
-                            <img src={`http://127.0.0.1:8000${blog.photo}`} alt={blog.title} style={{ maxWidth: '100%', height: 'auto' }} />
-                        )}
-                        
-                        {/* Render markdown content as HTML */}
-                        <div dangerouslySetInnerHTML={{ __html: blog.content }} />
+                        {/* Display only the first sentence of the blog content */}
+                        <p>{blog.content.split('. ')[0] + '.'}</p>
+
+                        {/* Display blog date */}
+                        <p className='blog-date'>Published on: {blog.created_at}</p>
 
                         {/* Link to the blog detailed page */}
-                        
                         <Link to={`/blog/${blog.id}`}>Read More</Link>
-                    </li>
+                        
+                        
+                    </div>
                 ))}
-            </ul>
+            </div>
         </section>
     );
 }

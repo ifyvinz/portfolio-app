@@ -20,6 +20,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import permission_classes, authentication_classes
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import AllowAny
+#from rest_framework.parsers import MultiPartParser, FormParser
 #from django.http import JsonRespons
 
 
@@ -140,34 +141,32 @@ def service_detail(request, pk):
     return Response(serializer.data)
 
 
-
 @api_view(['POST'])
-@csrf_exempt  # CSRF exemption for demonstration. Should use CSRF token in production
 def send_contact_email(request):
     name = request.data.get('name')
     email = request.data.get('email')
     message = request.data.get('message')
 
-    # Validate input data
     if not name or not email or not message:
         return Response({"error": "All fields are required"}, status=status.HTTP_400_BAD_REQUEST)
 
     email_subject = f"New Contact Form Submission from {name}"
     email_message = f"Name: {name}\nEmail: {email}\n\nMessage:\n{message}"
-    print(email)
+
     try:
-        # Send email
         send_mail(
             subject=email_subject,
             message=email_message,
-            from_email=settings.EMAIL_HOST_USER,  # Your email in settings
-            recipient_list=[settings.EMAIL_HOST_USER],  # Recipient list (your email)
+            from_email=settings.EMAIL_HOST_USER,
+            recipient_list=[settings.EMAIL_HOST_USER],
             fail_silently=False,
-            #reply_to=[email], 
         )
         return Response({"success": "Email sent successfully"}, status=status.HTTP_200_OK)
     except Exception as e:
-        return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        error_message = f"Error sending email: {str(e)}"
+        print(error_message)  # Console log for development
+        return Response({"error": error_message}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
 
 @api_view(['POST'])
 def create_portfolio(request):
@@ -175,7 +174,9 @@ def create_portfolio(request):
     if serializer.is_valid():
         serializer.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)
+    print("Errors:", serializer.errors)  # Log validation errors
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
 @api_view(['DELETE'])
 def delete_portfolio(request, pk):
@@ -203,4 +204,12 @@ def delete_blog(request, pk):
         return Response(status=status.HTTP_204_NO_CONTENT)
     except BlogPost.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
-
+        
+@api_view(['POST'])
+def create_service(request):
+    if request.method == 'POST':
+        serializer = ServiceSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

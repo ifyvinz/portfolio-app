@@ -1,3 +1,6 @@
+/* Font Imports */
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Playfair+Display:wght@700&display=swap');
+
 .about-container {
     display: flex;
     flex-direction: row;
@@ -8,7 +11,7 @@
     transition: background-color 0.5s ease, color 0.5s ease;
 }
 
-/* Left section styling */
+/* Left Section Styling */
 .about-left {
     flex: 1;
     display: flex;
@@ -34,32 +37,42 @@
 }
 
 .social-links a {
+    font-family: 'Merriweather', serif;
     text-decoration: none;
     font-weight: bold;
     font-size: 1rem;
     transition: color 0.3s ease;
 }
 
-/* Right section styling */
+/* Right Section Styling */
 .about-right {
     flex: 2;
+    font-family: 'Merriweather', serif;
     font-size: 1.1rem;
     line-height: 1.6;
     transition: color 0.5s ease;
 }
 
-/* Resume download button */
+.about-content h1, .about-content h2, .about-content h3 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    color: inherit;
+    margin-bottom: 1rem;
+}
+
+/* Resume Download Button */
 .resume-download {
     display: inline-block;
     padding: 0.6rem 1.2rem;
     border-radius: 5px;
+    font-family: 'Merriweather', serif;
     font-weight: bold;
     margin-top: 1rem;
     text-decoration: none;
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* Light theme styles */
+/* Light Theme Styles */
 body.light .about-container {
     background-color: #f4f4f7;
     color: #333;
@@ -82,16 +95,15 @@ body.light .social-links a:hover {
     color: #555;
 }
 
-/* Dark theme styles */
+/* Dark Theme Styles */
 body.dark .about-container {
     background-color: #2c3e50;
     color: #e0e0e0;
 }
 
-/* Targeting nested p and strong tags */
-body.dark .about-content h1,body.dark .about-content h2, body.dark .about-content h3,
+body.dark .about-content h1, body.dark .about-content h2, body.dark .about-content h3,
 body.dark .about-content p, body.dark .about-content strong {
-    color: inherit; /* Inherit color from the parent */
+    color: inherit;
 }
 
 body.dark .resume-download {
@@ -111,7 +123,7 @@ body.dark .social-links a:hover {
     color: #b0c4de;
 }
 
-/* Responsive adjustments */
+/* Responsive Adjustments */
 @media (max-width: 768px) {
     .about-container {
         flex-direction: column;

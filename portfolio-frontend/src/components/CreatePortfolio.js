@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import '../CreatePortfolio.css';
 
@@ -8,6 +9,8 @@ const CreatePortfolio = () => {
     const [photo, setPhoto] = useState(null);
     const [website, setWebsite] = useState('');
     const [github, setGithub] = useState('');
+
+    const navigate = useNavigate(); // Initialize navigate
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -20,13 +23,14 @@ const CreatePortfolio = () => {
 
         try {
             const token = localStorage.getItem('token');
-            await axios.post('/create_portfolio/', formData, {
+            await axios.post('create_portfolio/', formData, {
                 headers: {
                     'Authorization': `Token ${token}`,
                     'Content-Type': 'multipart/form-data'
                 }
             });
             alert('Portfolio created successfully!');
+            navigate('/portfolio'); // Redirect to the About page
         } catch (error) {
             console.error('Error creating portfolio:', error);
             alert('Failed to create portfolio.');

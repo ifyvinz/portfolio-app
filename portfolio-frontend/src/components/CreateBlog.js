@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import '../CreateBlog.css';
 
@@ -6,6 +7,8 @@ const CreateBlog = () => {
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
     const [photo, setPhoto] = useState(null);
+
+    const navigate = useNavigate(); // Initialize navigate
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -23,6 +26,7 @@ const CreateBlog = () => {
                 }
             });
             alert('Blog created successfully!');
+            navigate('/blog'); // Redirect to the About page
         } catch (error) {
             console.error('Error creating blog:', error);
             alert('Failed to create blog.');

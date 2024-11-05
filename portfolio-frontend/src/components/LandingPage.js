@@ -23,14 +23,17 @@ const LandingPage = () => {
             {profile ? (
                 <>
                     <div className="profile-photo">
-                        <img src={`http://127.0.0.1:8000${profile.photo}`}  alt="Vincent" />
+                        <img src={`http://127.0.0.1:8000${profile.photo}`} alt="Vincent" />
                     </div>
-                    <h1 className="mission-message">Creating Solutions from Code to Cloud</h1>
+                    <h1 className="mission-message">Creating Solutions from Code to the Cloud</h1>
+                    <p className="mission-paragraph">
+                        "To inspire and innovate through technology by crafting purposeful digital solutions that connect, empower, and drive positive change, while continuously growing and sharing knowledge to contribute to a more interconnected world."
+                    </p>
                     <div className="landing-buttons">
                         {profile.resume && (
-                          <a href={`http://127.0.0.1:8000${profile.resume}`} target="_blank" rel="noopener noreferrer" className="download-resume" download>
-                              Download My Resume
-                          </a>
+                            <a href={`http://127.0.0.1:8000${profile.resume}`} target="_blank" rel="noopener noreferrer" className="download-resume" download>
+                                Download My Resume
+                            </a>
                         )}
                         <Link to="/contact" className="contact-link">
                             Contact Me

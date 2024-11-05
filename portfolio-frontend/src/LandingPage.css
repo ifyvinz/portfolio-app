@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Playfair+Display:wght@700&display=swap');
+
 .landing-container {
     display: flex;
     flex-direction: column;
@@ -22,14 +24,30 @@
     transform: scale(1.05);
 }
 
+/* Mission Message Styling */
 .mission-message {
-    font-size: 1.8rem;
-    font-weight: bold;
-    margin-bottom: 20px;
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    font-weight: 700;
+    color: inherit;  /* Use theme color */
+    margin-bottom: 15px;
     transition: color 0.5s ease;
 }
 
-/* Button styling */
+/* Mission Paragraph Styling */
+.mission-paragraph {
+    font-family: 'Lora', serif;
+    font-size: 1.2rem;
+    font-weight: 400;
+    line-height: 1.6;
+    color: inherit;
+    max-width: 700px;
+    padding: 0 20px;
+    margin-bottom: 30px;
+    transition: color 0.5s ease;
+}
+
+/* Button Styling */
 .landing-buttons {
     display: flex;
     gap: 20px;
@@ -46,13 +64,14 @@
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* Light theme styles */
+/* Light Theme */
 body.light .landing-container {
     background-color: #f4f4f7;
     color: #333;
 }
 
-body.light .mission-message {
+body.light .mission-message,
+body.light .mission-paragraph {
     color: #333;
 }
 
@@ -67,13 +86,14 @@ body.light .contact-link:hover {
     background-color: #555;
 }
 
-/* Dark theme styles */
+/* Dark Theme */
 body.dark .landing-container {
     background-color: #2c3e50;
     color: #e0e0e0;
 }
 
-body.dark .mission-message {
+body.dark .mission-message,
+body.dark .mission-paragraph {
     color: #e0e0e0;
 }
 

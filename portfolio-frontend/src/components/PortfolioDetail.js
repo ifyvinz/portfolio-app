@@ -1,11 +1,19 @@
 import '../PortfolioDetail.css'
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';  // Hook to get URL parameters
+import { useParams, useNavigate } from 'react-router-dom';  // Hook to get URL parameters
 import instance from '../axiosInstance';  // axios instance for API calls
 
 function PortfolioDetail() {
     const { id } = useParams();  // Get the portfolio id from the URL
     const [portfolio, setPortfolio] = useState(null);  // State to store portfolio data
+    const navigate = useNavigate();
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+    // Check if user is authenticated
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+        setIsAuthenticated(!!token);
+    }, []);
 
     // Fetch portfolio data based on the ID from the API
     console.log(id)
@@ -17,6 +25,18 @@ function PortfolioDetail() {
             })
             .catch(error => console.error('Error fetching portfolio details:', error));
     }, [id]);
+
+     // Delete blog post function
+     const deletePortfolio = async () => {
+        try {
+            await instance.delete(`delete_portfolio/${id}/`);
+            alert('Porfolio post deleted successfully!');
+            navigate('/portfolio');
+        } catch (error) {
+            console.error('Error deleting Portfolio post:', error);
+            alert('Failed to delete the portfolio post.');
+        }
+    };
 
     // Display loading state or portfolio details
     if (!portfolio) {
@@ -44,6 +64,11 @@ function PortfolioDetail() {
                 <a href={portfolio.website} target="_blank" rel="noopener noreferrer">Visit Website</a> | 
                 <a href={portfolio.github} target="_blank" rel="noopener noreferrer"> GitHub</a>
             </p>
+
+            {/* Show Delete Button only if authenticated */}
+            {isAuthenticated && (
+                <button className="delete-button" onClick={deletePortfolio}>Delete Porfolio</button>
+            )}
         </section>
     );
 }
