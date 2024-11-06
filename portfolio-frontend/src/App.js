@@ -8,23 +8,28 @@ import Blog from './components/Blog';
 import BlogDetail from './components/BlogDetail';
 import PortfolioDetail from './components/PortfolioDetail';
 import Services from './components/Services';
-import Footer from'./components/Footer';
+import Footer from './components/Footer';
 import EditProfile from './components/EditProfile';
 import CreateBlog from './components/CreateBlog';
-import CreatePortfolio from './components/CreatePortfolio'
+import CreatePortfolio from './components/CreatePortfolio';
 import LandingPage from './components/LandingPage';
 import CreateService from './components/CreateService';
-import Login from './components/login';
+import Login from './components/Login';
 
 function App() {
     const [theme, setTheme] = useState('dark');
+    const [menuOpen, setMenuOpen] = useState(false); // New state for hamburger menu
 
     useEffect(() => {
-        document.body.className = theme; // Set body class to light or dark
+        document.body.className = theme;
     }, [theme]);
 
     const toggleTheme = () => {
         setTheme(theme === 'light' ? 'dark' : 'light');
+    };
+
+    const toggleMenu = () => {
+        setMenuOpen(!menuOpen); // Toggle menu visibility
     };
 
     return (
@@ -33,12 +38,15 @@ function App() {
                 <div className="nav-left">
                     <Link to="/">Vincent.</Link>
                 </div>
-                <div className="nav-center">
-                    <Link to="/about">About</Link>
-                    <Link to="/portfolio">Portfolio</Link>
-                    <Link to="/services">Services</Link>
-                    <Link to="/contact">Contact</Link>
-                    <Link to="/blog">Blog</Link>
+                <div className="hamburger-menu" onClick={toggleMenu}>
+                    ☰ {/* Icon for the hamburger menu */}
+                </div>
+                <div className={`nav-center ${menuOpen ? 'open' : ''}`}>
+                    <Link to="/about" onClick={() => setMenuOpen(false)}>About</Link>
+                    <Link to="/portfolio" onClick={() => setMenuOpen(false)}>Portfolio</Link>
+                    <Link to="/services" onClick={() => setMenuOpen(false)}>Services</Link>
+                    <Link to="/contact" onClick={() => setMenuOpen(false)}>Contact</Link>
+                    <Link to="/blog" onClick={() => setMenuOpen(false)}>Blog</Link>
                 </div>
                 <div className="nav-right">
                     <button onClick={toggleTheme} className="theme-toggle-btn">

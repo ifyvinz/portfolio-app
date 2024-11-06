@@ -154,18 +154,43 @@ body.dark .theme-toggle-btn:hover {
   transition: background-color 0.5s ease;
 }
 
-/* Responsive Styling */
+
+
+/* Base Styles */
+.hamburger-menu {
+  display: none;
+  font-size: 1.8rem;
+  cursor: pointer;
+}
+
+/* Responsive Styling for Hamburger Menu */
 @media (max-width: 768px) {
+  .nav-center {
+      display: none;
+      flex-direction: column;
+      text-align: center;
+      width: 100%;
+  }
+
+  .nav-center.open {
+      display: flex;
+  }
+
+  .hamburger-menu {
+      display: block;
+      cursor: pointer;
+  }
+
+  /* Optional: Adjust nav items and padding on smaller screens */
   nav {
-    flex-direction: column;
-    text-align: center;
+      padding: 1rem;
   }
 
   nav a {
-    margin: 0.5rem 0;
+      margin: 0.5rem 0;
   }
 
   .container {
-    padding: 1rem;
+      padding: 1rem;
   }
 }
