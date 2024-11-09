@@ -18,7 +18,7 @@ import Login from './components/Login';
 
 function App() {
     const [theme, setTheme] = useState('dark');
-    const [menuOpen, setMenuOpen] = useState(false); // New state for hamburger menu
+    const [menuOpen, setMenuOpen] = useState(false);
 
     useEffect(() => {
         document.body.className = theme;
@@ -29,17 +29,17 @@ function App() {
     };
 
     const toggleMenu = () => {
-        setMenuOpen(!menuOpen); // Toggle menu visibility
+        setMenuOpen(!menuOpen);
     };
 
     return (
         <Router>
             <nav>
                 <div className="nav-left">
-                    <Link to="/">Vincent.</Link>
+                    <Link to="/" onClick={() => setMenuOpen(false)}>Vincent.</Link>
                 </div>
                 <div className="hamburger-menu" onClick={toggleMenu}>
-                    ☰ {/* Icon for the hamburger menu */}
+                    {menuOpen ? '✕' : '☰'}
                 </div>
                 <div className={`nav-center ${menuOpen ? 'open' : ''}`}>
                     <Link to="/about" onClick={() => setMenuOpen(false)}>About</Link>
@@ -47,11 +47,13 @@ function App() {
                     <Link to="/services" onClick={() => setMenuOpen(false)}>Services</Link>
                     <Link to="/contact" onClick={() => setMenuOpen(false)}>Contact</Link>
                     <Link to="/blog" onClick={() => setMenuOpen(false)}>Blog</Link>
-                </div>
-                <div className="nav-right">
-                    <button onClick={toggleTheme} className="theme-toggle-btn">
-                        {theme === 'light' ? '🌙 Dark Mode' : '☀️ Light Mode'}
-                    </button>
+
+                    {/* Move theme toggle button to the center for mobile */}
+                    <div className="nav-right mobile-center">
+                       <button onClick={toggleTheme} className="theme-toggle-btn">
+                           {theme === 'light' ? '🌙 Dark Mode' : '☀️ Light Mode'}
+                       </button>
+                    </div>
                 </div>
             </nav>
 

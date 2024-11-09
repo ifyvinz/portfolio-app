@@ -155,8 +155,9 @@ body.dark .theme-toggle-btn:hover {
 }
 
 
+/* Other existing styles */
 
-/* Base Styles */
+/* Hamburger Menu Styling */
 .hamburger-menu {
   display: none;
   font-size: 1.8rem;
@@ -165,32 +166,49 @@ body.dark .theme-toggle-btn:hover {
 
 /* Responsive Styling for Hamburger Menu */
 @media (max-width: 768px) {
+  /*nav{
+    display: block;
+    text-align: left;
+  }*/
+  .nav-left {
+    flex: 1;
+    text-align: left;
+  }
+
   .nav-center {
-      display: none;
-      flex-direction: column;
-      text-align: center;
-      width: 100%;
+    display: none;
+    flex-direction: column;
+    text-align: center;
+    width: 100%;
   }
 
   .nav-center.open {
-      display: flex;
+    display: flex;
   }
 
   .hamburger-menu {
-      display: block;
-      cursor: pointer;
+    display: block;
+    cursor: pointer;
   }
 
-  /* Optional: Adjust nav items and padding on smaller screens */
+  /* Move theme toggle button to the center below menu items */
+  .nav-right {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-top: 1rem;
+  }
+
+  /* Center nav links and adjust padding */
   nav {
-      padding: 1rem;
+    padding: 1rem;
   }
 
   nav a {
-      margin: 0.5rem 0;
+    margin: 0.5rem 0;
   }
 
   .container {
-      padding: 1rem;
+    padding: 1rem;
   }
 }

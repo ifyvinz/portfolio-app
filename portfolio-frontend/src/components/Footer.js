@@ -28,7 +28,7 @@ function Footer() {
                             <Link to="/create-blog" className="footer-link">Create Blog</Link>
                             <Link to="/create-portfolio" className="footer-link">Create Portfolio</Link>
                             <Link to="/create-service" className="footer-link">Create Service</Link>
-                            <button onClick={handleLogout} className="footer-button">Logout</button>
+                            <button onClick={handleLogout} className="footer-button footer-link">Logout</button>
                         </>
                     )}
                 </div>
