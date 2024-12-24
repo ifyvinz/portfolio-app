@@ -66,3 +66,38 @@ body.dark {
     --button-text: #333;
     --button-hover: #ddd;
 }
+
+.feedback {
+    margin-bottom: 20px; /* Space between feedback and next input */
+    padding: 15px;
+    border-radius: 5px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 1rem; /* Increase size for visibility */
+    width: 100%; /* Span full form width */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+/* Success feedback styling */
+.feedback.success {
+    color: #155724;
+    background-color: #d4edda;
+    border: 1px solid #c3e6cb;
+}
+
+/* Error feedback styling */
+.feedback.error {
+    color: #721c24;
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+}
+
+/* Ensure the form fills its container */
+.edit-profile-form {
+    width: 100%;
+    max-width: 500px; /* Constrain form width */
+    background-color: var(--container-background);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}

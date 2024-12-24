@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Profile, BlogPost, Contact, Portfolio, Service, User
+from .models import Profile, BlogPost, Contact, Portfolio, Service, User, Badge
 from django.utils.safestring import mark_safe
 import markdown
 
@@ -12,7 +12,8 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 class ProfileSerializer(serializers.ModelSerializer):
-    about = serializers.SerializerMethodField()  # Handle markdown rendering
+    #about = serializers.SerializerMethodField()  # Handle markdown rendering
+    about = serializers.CharField()
     photo = serializers.ImageField()
     resume = serializers.FileField()
 
@@ -67,7 +68,7 @@ class PortfolioSerializer(serializers.ModelSerializer):
 
 
 class ServiceSerializer(serializers.ModelSerializer):
-    content = serializers.SerializerMethodField()  # Handle markdown rendering
+    #content = serializers.SerializerMethodField()  # Handle markdown rendering
     photo = serializers.ImageField()
 
     class Meta:
@@ -77,3 +78,10 @@ class ServiceSerializer(serializers.ModelSerializer):
     def get_content(self, obj):
         # Convert markdown to HTML using the get_content method
         return obj.get_content()
+
+class BadgeSerializer(serializers.ModelSerializer):
+    image = serializers.ImageField()
+
+    class Meta:
+        model = Badge
+        fields = ['id', 'name', 'image', 'url', 'created_at']

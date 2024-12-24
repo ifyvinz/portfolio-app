@@ -71,7 +71,7 @@ body.dark .create-service-form textarea:focus {
 
 /* Light Theme Button */
 body.light .submit-button {
-    background-color: #007bff; /* Blue */
+    background-color: #131313; /* Blue */
 }
 
 body.light .submit-button:hover {

@@ -82,3 +82,16 @@ class Service(models.Model):
 
     def __str__(self):
         return f"Title: {self.title}\nContent: {self.content}\n"
+
+
+class Badge(models.Model):
+    name = models.CharField(max_length=300)
+    image = models.ImageField(blank=True, null=True, upload_to='images/')
+    url = models.URLField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['-created_at']
+
+    def __str__(self):
+        return f"Badge name: {self.name} Url: {self.url} and created on {self.created_at}\n"

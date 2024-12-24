@@ -136,6 +136,39 @@ body.dark .delete-button:hover {
     background-color: #a93226;
 }
 
+
+.feedback {
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.feedback {
+    margin-bottom: 20px; /* Space between feedback and next input */
+    padding: 15px;
+    border-radius: 5px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 1rem; /* Increase size for visibility */
+    width: 100%; /* Span full form width */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+/* Success feedback styling */
+.feedback.success {
+    color: #155724;
+    background-color: #d4edda;
+    border: 1px solid #c3e6cb;
+}
+
+/* Error feedback styling */
+.feedback.error {
+    color: #721c24;
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+}
+
 /* Animations */
 @keyframes fadeIn {
     0% { opacity: 0; transform: translateY(10px); }
