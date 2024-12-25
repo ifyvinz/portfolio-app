@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import instance from '../axiosInstance';  // Import the axios instance for API calls
-import '../Services.css';  // Import CSS file for styling
+import ReactMarkdown from 'react-markdown';
+import '../css/Services.css';  // Import CSS file for styling
 
 function Services() {
     const [services, setServices] = useState([]);  // State to store service data
@@ -29,8 +30,9 @@ function Services() {
                         {/* Render service content from Markdown */}
                         <div
                             className="service-content"
-                            dangerouslySetInnerHTML={{ __html: service.content }}
+                            
                         />
+                        <ReactMarkdown>{service.content}</ReactMarkdown>
                     </div>
                 ))}
             </div>

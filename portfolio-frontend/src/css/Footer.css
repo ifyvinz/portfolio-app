@@ -54,15 +54,6 @@ body.dark .footer-section {
     border: none;
 }
 
-body.dark .footer-content .login-btn{
-    background-color: #202931;
-}
-
-body.light .footer-content .login-btn{
-    background-color: #eceef0;
-    color: #333;
-}
-
 .logout-btn {
     background-color: #f44336;
     color: white;

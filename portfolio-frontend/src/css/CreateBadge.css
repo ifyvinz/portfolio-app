@@ -50,9 +50,6 @@ body.dark .create-badge-container button {
     background-color: #3498db; /* Primary button color */
 }
 
-body.light .create-badge-container button {
-    background-color: #131313; /* Primary button color */
-}
 body.dark .create-badge-container button:hover {
     background-color: #2980b9; /* Darker button color on hover */
 }

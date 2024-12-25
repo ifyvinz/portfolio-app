@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import instance from '../axiosInstance';
-import '../CreateService.css';
+import '../css/CreateService.css';
 
 function CreateService() {
     const [title, setTitle] = useState('');

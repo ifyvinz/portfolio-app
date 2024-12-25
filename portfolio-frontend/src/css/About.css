@@ -124,6 +124,7 @@ body.dark .social-links a:hover {
 }
 
 /* Badges Section */
+/* Badges Section */
 .badges {
     display: grid;
     grid-template-columns: repeat(3, 1fr); /* Ensure 3 badges per row */
@@ -156,23 +157,6 @@ body.dark .social-links a:hover {
 .badge-card:hover {
     transform: translateY(-5px);
 }
-
-.delete-badge-btn {
-    background-color: #ff4d4d;
-    color: white;
-    border: none;
-    padding: 0.5rem;
-    border-radius: 4px;
-    cursor: pointer;
-    margin-top: 0.5rem;
-    display: block;
-    width: 100%;
-}
-
-.delete-badge-btn:hover {
-    background-color: #e04e4e;
-}
-
 
 .delete-badge-btn {
     background-color: #ff4d4d;

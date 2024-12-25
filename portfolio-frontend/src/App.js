@@ -1,6 +1,7 @@
-import './App.css';
+import './css/App.css';
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
+import axios from 'axios';
 import About from './components/About';
 import Portfolio from './components/Portfolio';
 import Contact from './components/Contact';
@@ -15,67 +16,112 @@ import CreatePortfolio from './components/CreatePortfolio';
 import LandingPage from './components/LandingPage';
 import CreateService from './components/CreateService';
 import Login from './components/Login';
+import CreateBadge from './components/CreateBadge';
 
 function App() {
     const [theme, setTheme] = useState('dark');
     const [menuOpen, setMenuOpen] = useState(false);
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+        setIsLoggedIn(!!token);
+    }, []);
 
     useEffect(() => {
         document.body.className = theme;
     }, [theme]);
 
+    const handleLogout = async () => {
+        const token = localStorage.getItem('token');
+        console.log("Token being sent:", token);
+    
+        try {
+            const response = await axios.post('http://localhost:8000/logout/', null, {
+                headers: {
+                    'Authorization': `Token ${token}`,
+                },
+            });
+    
+            console.log("Logout response:", response.data);
+            if (response.status === 200) {
+                localStorage.removeItem('token');
+                setIsLoggedIn(false);
+            }
+        } catch (error) {
+            console.error("Error during logout:", error.response?.data || error.message);
+        }
+    };
+    
+
+
     const toggleTheme = () => {
-        setTheme(theme === 'light' ? 'dark' : 'light');
+        setTheme((prevTheme) => (prevTheme === 'light' ? 'dark' : 'light'));
     };
 
     const toggleMenu = () => {
-        setMenuOpen(!menuOpen);
+        setMenuOpen((prevMenuOpen) => !prevMenuOpen);
+        document.body.classList.toggle('menu-open', !menuOpen);
+    };
+
+    const closeMenu = () => {
+        setMenuOpen(false);
+        document.body.classList.remove('menu-open');
     };
 
     return (
         <Router>
             <nav>
                 <div className="nav-left">
-                    <Link to="/" onClick={() => setMenuOpen(false)}>Vincent.</Link>
+                    <Link to="/" onClick={closeMenu}>Vincent.</Link>
                 </div>
-                <div className="hamburger-menu" onClick={toggleMenu}>
+
+                <div
+                    className={`hamburger-menu ${menuOpen ? 'open' : ''}`}
+                    onClick={toggleMenu}
+                >
                     {menuOpen ? '✕' : '☰'}
                 </div>
-                <div className={`nav-center ${menuOpen ? 'open' : ''}`}>
-                    <Link to="/about" onClick={() => setMenuOpen(false)}>About</Link>
-                    <Link to="/portfolio" onClick={() => setMenuOpen(false)}>Portfolio</Link>
-                    <Link to="/services" onClick={() => setMenuOpen(false)}>Services</Link>
-                    <Link to="/contact" onClick={() => setMenuOpen(false)}>Contact</Link>
-                    <Link to="/blog" onClick={() => setMenuOpen(false)}>Blog</Link>
 
-                    {/* Move theme toggle button to the center for mobile */}
-                    <div className="nav-right mobile-center">
-                       <button onClick={toggleTheme} className="theme-toggle-btn">
-                           {theme === 'light' ? '🌙 Dark Mode' : '☀️ Light Mode'}
-                       </button>
-                    </div>
+                <div className={`nav-center ${menuOpen ? 'open' : ''}`}>
+                    <Link to="/about" onClick={closeMenu}>About</Link>
+                    <Link to="/portfolio" onClick={closeMenu}>Portfolio</Link>
+                    <Link to="/services" onClick={closeMenu}>Services</Link>
+                    <Link to="/contact" onClick={closeMenu}>Contact</Link>
+                    <Link to="/blog" onClick={closeMenu}>Blog</Link>
+                </div>
+
+                <div className="nav-right">
+                    <button onClick={toggleTheme} className="theme-toggle-btn">
+                        {theme === 'light' ? '🌙 Dark Mode' : '☀️ Light Mode'}
+                    </button>
                 </div>
             </nav>
 
+            {menuOpen && <div className="backdrop" onClick={closeMenu}></div>}
+
             <div className="container">
                 <Routes>
-                    <Route path='/' element={<LandingPage />} />
-                    <Route path="/about" element={<About />} />
+                    <Route path="/" element={<LandingPage />} />
+                    <Route path="/about" element={<About isLoggedIn={isLoggedIn} />} />
                     <Route path="/portfolio" element={<Portfolio />} />
                     <Route path="/portfolio/:id" element={<PortfolioDetail />} />
                     <Route path="/services" element={<Services />} />
                     <Route path="/contact" element={<Contact />} />
                     <Route path="/blog" element={<Blog />} />
                     <Route path="/blog/:id" element={<BlogDetail />} />
-                    <Route path="/login" element={<Login />} />
-                    <Route path='/edit-profile' element={<EditProfile />} />
+                    <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn} />} />
+
+                    <Route path="/edit-profile" element={<EditProfile />} />
                     <Route path="/create-blog" element={<CreateBlog />} />
                     <Route path="/create-portfolio" element={<CreatePortfolio />} />
                     <Route path="/create-service" element={<CreateService />} />
+                    <Route path="/create-badge" element={<CreateBadge />} />
+
                 </Routes>
             </div>
 
-            <Footer />
+            <Footer isLoggedIn={isLoggedIn} handleLogout={handleLogout} />
         </Router>
     );
 }

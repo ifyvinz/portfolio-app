@@ -1,35 +1,38 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import '../Footer.css';
+import '../css/Footer.css';
 
-function Footer() {
-    const isLoggedIn = !!localStorage.getItem('token');
-    
-    const handleLogout = () => {
-        if (window.confirm("Are you sure you want to log out?")) {
-            localStorage.removeItem('token');
-            window.location.reload(); // Refresh page to update footer
-        }
-    };
-
+function Footer({ isLoggedIn, handleLogout }) {
     return (
         <footer className="footer-section">
             <div className="footer-content">
                 <p className="footer-author">Vincent Igbineweka © {new Date().getFullYear()}</p>
 
                 <div className="footer-links">
-                    {!isLoggedIn && (
-                        <Link to="/login" className="footer-link">Login</Link>
-                    )}
+                    {/* Login/Logout buttons */}
+                    <div className="footer-login-logout">
+                        {!isLoggedIn && (
+                            <Link to="/login" className="footer-link login-btn">Login</Link>
+                        )}
+                        {isLoggedIn && (
+                            <button onClick={handleLogout} className="footer-link logout-btn">Logout</button>
+                        )}
+                    </div>
+
+                    {/* Links section (Edit Profile, Create Blog, etc.) */}
                     {isLoggedIn && (
-                        <>
-                            <Link to="/edit-profile" className="footer-link">Edit Profile</Link>
-                            <Link to="/create-blog" className="footer-link">Create Blog</Link>
-                            <Link to="/create-portfolio" className="footer-link">Create Portfolio</Link>
-                            <Link to="/create-service" className="footer-link">Create Service</Link>
-                            <button onClick={handleLogout} className="footer-button footer-link">Logout</button>
-                        </>
+                        <div className="footer-column-links">
+                            <div className="footer-column">
+                                <Link to="/edit-profile" className="footer-link">Edit Profile</Link>
+                                <Link to="/create-blog" className="footer-link">Create Blog</Link>
+                                <Link to="/create-portfolio" className="footer-link">Create Portfolio</Link>
+                            </div>
+                            <div className="footer-column">
+                                <Link to="/create-service" className="footer-link">Create Service</Link>
+                                <Link to="/create-badge" className="footer-link">Create Badge</Link>
+                            </div>
+                        </div>
                     )}
                 </div>
 

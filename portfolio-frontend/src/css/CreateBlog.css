@@ -86,10 +86,6 @@ button {
     transition: background-color 0.3s ease;
 }
 
-body.light .create-blog-container .create-blog-form button{
-    background-color: #131313;
-}
-
 button:hover {
     background-color: #2980b9;
 }

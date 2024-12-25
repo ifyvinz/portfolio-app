@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import instance from '../axiosInstance';
-import '../BlogDetail.css';
+import ReactMarkdown from 'react-markdown';  // Import react-markdown
+import '../css/BlogDetail.css';
 
 function BlogDetail() {
     const { id } = useParams();
     const [blog, setBlog] = useState(null);
     const navigate = useNavigate();
     const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const [feedback, setFeedback] = useState({ message: '', type: '' });
 
     // Check if user is authenticated
     useEffect(() => {
@@ -26,11 +28,11 @@ function BlogDetail() {
     const deleteBlogPost = async () => {
         try {
             await instance.delete(`delete_blog/${id}/`);
-            alert('Blog post deleted successfully!');
+            setFeedback({ message: 'Blog post successfully deleted!', type: 'success' });
             navigate('/blog');
         } catch (error) {
             console.error('Error deleting blog post:', error);
-            alert('Failed to delete the blog post.');
+            setFeedback({ message: 'Failed to delete. Please try again.', type: 'error' });
         }
     };
 
@@ -41,7 +43,7 @@ function BlogDetail() {
     return (
         <section className="blog-detail">
             <h1>{blog.title}</h1>
-
+            {feedback.message && <p className={`feedback ${feedback.type}`}>{feedback.message}</p>}
             {blog.photo && (
                 <img
                     src={`http://127.0.0.1:8000${blog.photo}`}
@@ -50,7 +52,11 @@ function BlogDetail() {
                 />
             )}
 
-            <div dangerouslySetInnerHTML={{ __html: blog.content }} className="blog-content" />
+            {/* Use ReactMarkdown to render Markdown content as HTML */}
+            <div className="blog-content">
+                <ReactMarkdown>{blog.content}</ReactMarkdown>
+            </div>
+
             <p className="created-at">Published on: {blog.created_at}</p>
 
             {/* Show Delete Button only if authenticated */}

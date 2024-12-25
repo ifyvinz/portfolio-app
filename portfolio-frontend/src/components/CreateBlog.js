@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import '../CreateBlog.css';
+import '../css/CreateBlog.css';
 
 const CreateBlog = () => {
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
     const [photo, setPhoto] = useState(null);
+    const [feedback, setFeedback] = useState({ message: '', type: '' });
 
-    const navigate = useNavigate(); // Initialize navigate
+    const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -22,29 +23,37 @@ const CreateBlog = () => {
             await axios.post('create_blog/', formData, {
                 headers: {
                     'Authorization': `Token ${token}`,
-                    'Content-Type': 'multipart/form-data'
-                }
+                    'Content-Type': 'multipart/form-data',
+                },
             });
-            alert('Blog created successfully!');
-            navigate('/blog'); // Redirect to the About page
+            setFeedback({ message: 'Blog created successfully!', type: 'success' });
+            setTimeout(() => navigate('/blog'), 2000);
         } catch (error) {
-            console.error('Error creating blog:', error);
-            alert('Failed to create blog.');
+            setFeedback({ message: 'Failed to create blog. Please try again.', type: 'error' });
         }
     };
 
     return (
-        
-            <div className="create-blog-container">
-                <form onSubmit={handleSubmit} className="create-blog">
-                    <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} placeholder="Title" required />
-                    <textarea value={content} onChange={(e) => setContent(e.target.value)} placeholder="Content" required />
-                    <input type="file" onChange={(e) => setPhoto(e.target.files[0])} />
-                    <button type="submit">Create Blog</button>
-                </form>
-            </div>
-        
-        
+        <div className="create-blog-container">
+            <form onSubmit={handleSubmit} className="create-blog-form">
+                {feedback.message && <p className={`feedback ${feedback.type}`}>{feedback.message}</p>}
+                <input
+                    type="text"
+                    value={title}
+                    onChange={(e) => setTitle(e.target.value)}
+                    placeholder="Title"
+                    required
+                />
+                <textarea
+                    value={content}
+                    onChange={(e) => setContent(e.target.value)}
+                    placeholder="Content"
+                    required
+                />
+                <input type="file" onChange={(e) => setPhoto(e.target.files[0])} />
+                <button type="submit">Create Blog</button>
+            </form>
+        </div>
     );
 };
 

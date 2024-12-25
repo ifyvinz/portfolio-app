@@ -1,4 +1,4 @@
-import '../Portfolio.css';
+import '../css/Portfolio.css';
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';  // Import Link for navigation
 import instance from '../axiosInstance';  // axios instance for API calls
@@ -23,7 +23,7 @@ function Portfolio() {
                         <h2>{portfolio.title}</h2>
                         
                         {/* Render description from Markdown */}
-                        <p dangerouslySetInnerHTML={{ __html: portfolio.discription }}></p>
+                        {/*<p dangerouslySetInnerHTML={{ __html: portfolio.discription }}></p>*/}
                         
                         {/* Render project image */}
                         {portfolio.photo && (

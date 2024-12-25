@@ -155,61 +155,82 @@ body.dark .theme-toggle-btn:hover {
 }
 
 
-/* Other existing styles */
+/* Navbar Styling */
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: transparent;
+}
 
-/* Hamburger Menu Styling */
+.nav-left {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.8rem;
+  font-weight: bold;
+}
+
+.nav-left a {
+  text-decoration: none;
+  color: inherit;
+  transition: color 0.3s ease;
+}
+
+/* Navigation Links */
+.nav-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.nav-center a {
+  margin: 0 1rem;
+  font-size: 1.2rem;
+  text-decoration: none;
+  color: inherit;
+  transition: color 0.3s ease, border-bottom-color 0.3s ease;
+}
+
 .hamburger-menu {
   display: none;
   font-size: 1.8rem;
   cursor: pointer;
+  z-index: 1100;
 }
 
-/* Responsive Styling for Hamburger Menu */
+.hamburger-menu.open {
+  color: #fff;
+}
+
+.nav-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
 @media (max-width: 768px) {
-  /*nav{
+  .hamburger-menu {
     display: block;
-    text-align: left;
-  }*/
-  .nav-left {
-    flex: 1;
-    text-align: left;
   }
 
   .nav-center {
-    display: none;
-    flex-direction: column;
-    text-align: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
     width: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transform: translateY(-100%);
+    opacity: 0;
+    transition: transform 0.3s ease, opacity 0.3s ease;
   }
 
   .nav-center.open {
-    display: flex;
-  }
-
-  .hamburger-menu {
-    display: block;
-    cursor: pointer;
-  }
-
-  /* Move theme toggle button to the center below menu items */
-  .nav-right {
-    display: flex;
-    justify-content: center;
-    width: 100%;
-    margin-top: 1rem;
-  }
-
-  /* Center nav links and adjust padding */
-  nav {
-    padding: 1rem;
-  }
-
-  
-  nav a {
-    margin: 0.5rem 0;
-  }
-
-  .container {
-    padding: 1rem;
+    transform: translateY(0);
+    opacity: 1;
   }
 }

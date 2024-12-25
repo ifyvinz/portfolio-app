@@ -1,7 +1,8 @@
-import '../PortfolioDetail.css'
+import '../css/PortfolioDetail.css'
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';  // Hook to get URL parameters
 import instance from '../axiosInstance';  // axios instance for API calls
+import ReactMarkdown from 'react-markdown';
 
 function PortfolioDetail() {
     const { id } = useParams();  // Get the portfolio id from the URL
@@ -48,8 +49,8 @@ function PortfolioDetail() {
             <h1>{portfolio.title}</h1>
             
             {/* Render description from Markdown */}
-            <p dangerouslySetInnerHTML={{ __html: portfolio.discription }}></p>
             
+            <div><ReactMarkdown>{portfolio.discription}</ReactMarkdown></div>
             {/* Render project image */}
             {portfolio.photo && (
                 <img

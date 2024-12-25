@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate
-import '../EditProfile.css';
+import '../css/EditProfile.css';
 
 const EditProfile = () => {
     const [about, setAbout] = useState('');
@@ -10,6 +10,7 @@ const EditProfile = () => {
     const [github, setGithub] = useState('');
     const [linkedln, setLinkedln] = useState('');
     const [twitter, setTwitter] = useState('');
+    const [feedback, setFeedback] = useState({ message: '', type: '' });
 
     const navigate = useNavigate(); // Initialize navigate
 
@@ -41,26 +42,27 @@ const EditProfile = () => {
         formData.append('github', github);
         formData.append('linkedln', linkedln);
         formData.append('twitter', twitter);
-
+    
         try {
             const token = localStorage.getItem('token');
             await axios.put('edit_profile/', formData, {
                 headers: {
                     Authorization: `Token ${token}`,
-                    'Content-Type': 'multipart/form-data'
-                }
+                    'Content-Type': 'multipart/form-data',
+                },
             });
-            alert('Profile updated successfully!');
-            navigate('/'); // Redirect to the About page
+            setFeedback({ message: 'Profile updated successfully!', type: 'success' });
+            setTimeout(() => navigate('/'), 2000);
         } catch (error) {
-            console.error('Error updating profile:', error);
-            alert('Failed to update profile.');
+            setFeedback({ message: 'Failed to update profile. Please try again.', type: 'error' });
         }
     };
+    
 
     return (
         <div className="edit-profile-container">
             <form onSubmit={handleSubmit} className="edit-profile-form">
+                {feedback.message && <p className={`feedback ${feedback.type}`}>{feedback.message}</p>}
                 <textarea
                     value={about}
                     onChange={(e) => setAbout(e.target.value)}
@@ -100,6 +102,5 @@ const EditProfile = () => {
             </form>
         </div>
     );
-};
-
+}    
 export default EditProfile;
