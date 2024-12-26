@@ -19,7 +19,7 @@ function PortfolioDetail() {
     // Fetch portfolio data based on the ID from the API
     console.log(id)
     useEffect(() => {
-        instance.get(`portfolio/${id}/`)
+        instance.get(`http://18.159.112.61/portfolio/${id}/`)
             .then(response => {
                 console.log(response.data);  // Debugging to see the response
                 setPortfolio(response.data);
@@ -54,7 +54,7 @@ function PortfolioDetail() {
             {/* Render project image */}
             {portfolio.photo && (
                 <img
-                    src={`http://127.0.0.1:8000${portfolio.photo}`}  // Full image URL
+                    src={`http://18.159.112.61${portfolio.photo}`}  // Full image URL
                     alt={portfolio.title}
                     style={{ maxWidth: '100%', height: 'auto' }}
                 />

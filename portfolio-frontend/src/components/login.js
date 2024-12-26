@@ -3,6 +3,8 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import '../css/Login.css';
 
+//axios.defaults.baseURL = 'http://18.159.112.61';
+
 const Login = ({ setIsLoggedIn }) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
@@ -12,7 +14,7 @@ const Login = ({ setIsLoggedIn }) => {
         e.preventDefault(); // Prevent default form behavior
         try {
             // Send login request to the backend
-            const response = await axios.post('http://localhost:8000/login/', {
+            const response = await axios.post('http://18.159.112.61/login/', {
                 username: username,
                 password: password
             });
@@ -27,8 +29,16 @@ const Login = ({ setIsLoggedIn }) => {
                 console.error('Login failed');
             }
         } catch (error) {
-            console.error('Error during login:', error);
+            if (error.response) {
+                console.error('Server responded with:', error.response.data); // Response data
+                console.error('Status code:', error.response.status); // HTTP status
+            } else if (error.request) {
+                console.error('No response received:', error.request); // Request made but no response
+            } else {
+                console.error('Error setting up request:', error.message);
+            }
         }
+        
     };
 
     return (

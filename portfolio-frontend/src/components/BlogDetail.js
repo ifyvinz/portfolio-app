@@ -19,7 +19,7 @@ function BlogDetail() {
 
     // Fetch the blog post details based on the ID from the API
     useEffect(() => {
-        instance.get(`blogposts/${id}/`)
+        instance.get(`http://18.159.112.61/blogposts/${id}/`)
             .then(response => setBlog(response.data))
             .catch(error => console.error('Error fetching blog post details:', error));
     }, [id]);
@@ -46,7 +46,7 @@ function BlogDetail() {
             {feedback.message && <p className={`feedback ${feedback.type}`}>{feedback.message}</p>}
             {blog.photo && (
                 <img
-                    src={`http://127.0.0.1:8000${blog.photo}`}
+                    src={`http://18.159.112.61${blog.photo}`}
                     alt={blog.title}
                     className="blog-image"
                 />

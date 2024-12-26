@@ -3,6 +3,8 @@ import axios from 'axios';
 import ReactMarkdown from 'react-markdown';
 import '../css/About.css';
 
+axios.defaults.baseURL = 'http://18.159.112.61';
+
 const About = ({ isLoggedIn }) => {
     const [profile, setProfile] = useState(null);
     const [badges, setBadges] = useState([]);
@@ -10,7 +12,7 @@ const About = ({ isLoggedIn }) => {
     useEffect(() => {
         const fetchProfile = async () => {
             try {
-                const response = await axios.get('/profile/');
+                const response = await axios.get('http://18.159.112.61/profile/');
                 setProfile(response.data);
             } catch (error) {
                 console.error("Error fetching profile data:", error);
@@ -19,8 +21,7 @@ const About = ({ isLoggedIn }) => {
 
         const fetchBadges = async () => {
             try {
-                const response = await axios.get('/badges/');
-                console.log("Fetched badges:", response.data); // Debug badges
+                const response = await axios.get('http://18.159.112.61/badges/');
                 setBadges(response.data);
             } catch (error) {
                 console.error("Error fetching badges:", error);
@@ -32,7 +33,6 @@ const About = ({ isLoggedIn }) => {
     }, []);
 
     const handleDelete = async (id) => {
-        console.log("Deleting badge with ID:", id); // Debug id
         try {
             await axios.delete(`/delete_badge/${id}/`);
             setBadges(badges.filter(badge => badge.id !== id));
@@ -46,13 +46,14 @@ const About = ({ isLoggedIn }) => {
             {profile ? (
                 <>
                     <div className="about-left">
-                        <img src={`http://127.0.0.1:8000${profile.photo}`} alt="Vincent" className="profile-photo" />
+                        <img src={`http://18.159.112.61${profile.photo}`} alt="Vincent" className="profile-photo" />
+
                         <div className="social-links">
                             <a href={profile.github} target="_blank" rel="noopener noreferrer">GitHub</a>
                             <a href={profile.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn</a>
                             <a href={profile.twitter} target="_blank" rel="noopener noreferrer">Twitter</a>
                         </div>
-                        <a href={profile.resume} download className="resume-download">
+                        <a href={`http://18.159.112.61${profile.resume}`} download className="resume-download">
                             Download Resume
                         </a>
                     </div>
@@ -65,7 +66,7 @@ const About = ({ isLoggedIn }) => {
                             {badges.map((badge, index) => (
                                 <div key={badge.id || `badge-${index}`} className="badge-card">
                                     <a href={badge.url} target="_blank" rel="noopener noreferrer">
-                                        <img src={`http://127.0.0.1:8000${badge.image}`} alt={badge.name} />
+                                       <img src={`http://18.159.112.61${badge.image}`} alt={badge.name} />
                                     </a>
                                     {isLoggedIn && (
                                         <button

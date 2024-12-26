@@ -3,13 +3,15 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import '../css/LandingPage.css';
 
+axios.defaults.baseURL = 'http://18.159.112.61';
+
 const LandingPage = () => {
     const [profile, setProfile] = useState(null);
 
     useEffect(() => {
         const fetchProfile = async () => {
             try {
-                const response = await axios.get('profile/');
+                const response = await axios.get('http://18.159.112.61/profile/');
                 setProfile(response.data);
             } catch (error) {
                 console.error("Error fetching profile data:", error);
@@ -23,7 +25,7 @@ const LandingPage = () => {
             {profile ? (
                 <>
                     <div className="profile-photo">
-                        <img src={`http://127.0.0.1:8000${profile.photo}`} alt="Vincent" />
+                        <img src={`http://18.159.112.61${profile.photo}`} alt="Vincent" />
                     </div>
                     <h1 className="mission-message">Creating Solutions from Code to the Cloud</h1>
                     <p className="mission-paragraph">
@@ -31,7 +33,7 @@ const LandingPage = () => {
                     </p>
                     <div className="landing-buttons">
                         {profile.resume && (
-                            <a href={`http://127.0.0.1:8000${profile.resume}`} target="_blank" rel="noopener noreferrer" className="download-resume" download>
+                            <a href={`http://18.159.112.61${profile.resume}`} target="_blank" rel="noopener noreferrer" className="download-resume" download>
                                 Download My Resume
                             </a>
                         )}

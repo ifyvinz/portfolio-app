@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import '../css/CreateBadge.css'; // Ensure the path is correct.
 
+axios.defaults.baseURL = 'http://18.159.112.61';
+
 const CreateBadge = () => {
     const [name, setName] = useState('');
     const [image, setImage] = useState(null);
@@ -16,7 +18,7 @@ const CreateBadge = () => {
         formData.append('url', url);
 
         try {
-            await axios.post('/create_badge/', formData);
+            await axios.post('http://18.159.112.61/create_badge/', formData);
             setSuccess(true);
             setName('');
             setImage(null);

@@ -3,9 +3,11 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import '../css/CreatePortfolio.css';
 
+axios.defaults.baseURL = 'http://18.159.112.61';
+
 const CreatePortfolio = () => {
     const [title, setTitle] = useState('');
-    const [description, setDescription] = useState('');
+    const [discription, setDescription] = useState('');
     const [photo, setPhoto] = useState(null);
     const [website, setWebsite] = useState('');
     const [github, setGithub] = useState('');
@@ -17,25 +19,30 @@ const CreatePortfolio = () => {
         e.preventDefault();
         const formData = new FormData();
         formData.append('title', title);
-        formData.append('description', description);
+        formData.append('discription', discription);
         formData.append('photo', photo);
         formData.append('website', website);
         formData.append('github', github);
-
+    
+        console.log('FormData entries:', Array.from(formData.entries())); // Debugging
+    
         try {
             const token = localStorage.getItem('token');
-            await axios.post('create_portfolio/', formData, {
+            const response = await axios.post('http://18.159.112.61/create_portfolio/', formData, {
                 headers: {
                     Authorization: `Token ${token}`,
                     'Content-Type': 'multipart/form-data',
                 },
             });
+            console.log('Response:', response.data);
             setFeedback({ message: 'Portfolio created successfully!', type: 'success' });
             setTimeout(() => navigate('/portfolio'), 2000);
         } catch (error) {
+            console.error('Error:', error.response?.data || error.message); // Debugging
             setFeedback({ message: 'Failed to create portfolio. Please try again.', type: 'error' });
         }
     };
+    
 
     return (
         <div className="create-portfolio-container">
@@ -49,7 +56,7 @@ const CreatePortfolio = () => {
                     required
                 />
                 <textarea
-                    value={description}
+                    value={discription}
                     onChange={(e) => setDescription(e.target.value)}
                     placeholder="Description"
                     required

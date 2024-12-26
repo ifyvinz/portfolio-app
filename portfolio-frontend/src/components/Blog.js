@@ -9,7 +9,7 @@ function Blog() {
 
     useEffect(() => {
         // Fetch blog posts from Django API
-        instance.get('blogposts/')
+        instance.get('http://18.159.112.61/blogposts/')
             .then(response => setBlogs(response.data))  // Store fetched data in blogs state
             .catch(error => console.error('Error fetching blog posts:', error));  // Handle errors
     }, []);  // The empty dependency array means this effect runs only once when the component mounts

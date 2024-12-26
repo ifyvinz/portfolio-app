@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import '../css/CreateBlog.css';
 
+axios.defaults.baseURL = 'http://18.159.112.61';
+
 const CreateBlog = () => {
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
@@ -20,7 +22,7 @@ const CreateBlog = () => {
 
         try {
             const token = localStorage.getItem('token');
-            await axios.post('create_blog/', formData, {
+            await axios.post('http://18.159.112.61/create_blog/', formData, {
                 headers: {
                     'Authorization': `Token ${token}`,
                     'Content-Type': 'multipart/form-data',

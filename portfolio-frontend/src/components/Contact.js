@@ -2,6 +2,8 @@ import '../css/Contact.css';
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
+axios.defaults.baseURL = 'http://18.159.112.61';
+
 function Contact() {
     const [formData, setFormData] = useState({ name: '', email: '', message: '' });
     const [file, setFile] = useState(null); // Store the uploaded file
@@ -31,7 +33,7 @@ function Contact() {
         formDataObj.append('message', formData.message);
         if (file) formDataObj.append('file', file); // Append file if available
 
-        axios.post('send-email/', formDataObj, {
+        axios.post('http://18.159.112.61/send-email/', formDataObj, {
             headers: {
                 'X-CSRFToken': csrfToken, // Send the CSRF token
                 'Content-Type': 'multipart/form-data', // Important for file uploads
@@ -82,7 +84,7 @@ function Contact() {
                     onChange={e => setFile(e.target.files[0])}
                     accept=".jpg,.jpeg,.png,.pdf,.docx"
                 />
-                <button type="submit">Send</button>
+                <button type="submit">Send Email</button>
             </form>
         </section>
     );

@@ -18,6 +18,8 @@ import CreateService from './components/CreateService';
 import Login from './components/Login';
 import CreateBadge from './components/CreateBadge';
 
+axios.defaults.baseURL = 'http://18.159.112.61';
+
 function App() {
     const [theme, setTheme] = useState('dark');
     const [menuOpen, setMenuOpen] = useState(false);
@@ -37,7 +39,7 @@ function App() {
         console.log("Token being sent:", token);
     
         try {
-            const response = await axios.post('http://localhost:8000/logout/', null, {
+            const response = await axios.post('http://18.159.112.61/logout/', null, {
                 headers: {
                     'Authorization': `Token ${token}`,
                 },

@@ -8,7 +8,7 @@ function Services() {
 
     // Fetch services from the API when the component mounts
     useEffect(() => {
-        instance.get('services/')  // Adjust the endpoint as needed
+        instance.get('http://18.159.112.61/services/')  // Adjust the endpoint as needed
             .then(response => setServices(response.data))
             .catch(error => console.error('Error fetching services:', error));
     }, []);
@@ -21,7 +21,7 @@ function Services() {
                     <div className="service-item" key={service.id}>
                         {service.photo && (
                             <img
-                                src={`http://127.0.0.1:8000${service.photo}`}  // Full image URL
+                                src={`http://18.159.112.61${service.photo}`}  // Full image URL
                                 alt={service.title}
                                 className="service-photo"  // Class for styling
                             />

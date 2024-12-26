@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const instance = axios.create({
-  baseURL: 'http://localhost:8000',  // Django backend URL
+  baseURL: 'http://18.159.112.61',  // Django backend URL
 });
 
 export default instance;

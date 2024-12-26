@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import instance from '../axiosInstance';
+//import instance from '../axiosInstance';
+import axios from 'axios';
 import '../css/CreateService.css';
 
+axios.defaults.baseURL = 'http://18.159.112.61';
 function CreateService() {
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
@@ -14,19 +16,28 @@ function CreateService() {
         event.preventDefault();
         const formData = new FormData();
         formData.append('title', title);
-        formData.append('content', content);
+        //formData.append('photo', photo);
+        //console.log(photo)
         if (photo) formData.append('photo', photo);
-
+        formData.append('content', content);
+        console.log('FormData entries:', Array.from(formData.entries())); // Debugging
         try {
-            await instance.post('create_service/', formData, {
-                headers: { 'Content-Type': 'multipart/form-data' },
+            const token = localStorage.getItem('token');
+            const response = await axios.post('http://18.159.112.61/create_service/', formData, {
+                headers: {
+                    'Authorization': `Token ${token}`,
+                    'Content-Type': 'multipart/form-data',
+                    
+                 },
             });
+            console.log('Response:', response.data);
             setMessage('Service created successfully!');
             setTitle('');
             setContent('');
             setPhoto(null);
             navigate('/services'); // Redirect to the Services page
         } catch (error) {
+            console.error('Error:', error.response?.data || error.message); // Debugging
             console.error('Error creating service:', error);
             setMessage('Error creating service.');
         }

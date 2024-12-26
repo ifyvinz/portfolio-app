@@ -3,6 +3,8 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate
 import '../css/EditProfile.css';
 
+axios.defaults.baseURL = 'http://18.159.112.61';
+
 const EditProfile = () => {
     const [about, setAbout] = useState('');
     const [photo, setPhoto] = useState(null);
@@ -18,7 +20,7 @@ const EditProfile = () => {
         const fetchProfile = async () => {
             const token = localStorage.getItem('token');
             try {
-                const response = await axios.get('profile/', {
+                const response = await axios.get('http://18.159.112.61/profile/', {
                     headers: { Authorization: `Token ${token}` }
                 });
                 const profile = response.data;
@@ -45,7 +47,7 @@ const EditProfile = () => {
     
         try {
             const token = localStorage.getItem('token');
-            await axios.put('edit_profile/', formData, {
+            await axios.put('http://18.159.112.61/edit_profile/', formData, {
                 headers: {
                     Authorization: `Token ${token}`,
                     'Content-Type': 'multipart/form-data',
