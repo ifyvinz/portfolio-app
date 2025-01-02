@@ -173,3 +173,68 @@ body.dark .social-links a:hover {
 .delete-badge-btn:hover {
     background-color: #e04e4e;
 }
+
+/* Media Query for Small Screens (Mobile) */
+@media (max-width: 768px) {
+    .about-container {
+        flex-direction: column; /* Stack items vertically */
+        gap: 20px; /* Reduce the gap between sections */
+        padding: 1rem; /* Adjust padding for smaller screens */
+        text-align: center; /* Center text for better readability */
+    }
+
+    .about-left, .about-right {
+        flex: none; /* Prevent flex shrinking */
+        width: 100%; /* Take full width on small screens */
+    }
+
+    .profile-photo {
+        width: 120px; /* Smaller size for profile photo */
+        height: 120px;
+        margin: 0 auto 1rem; /* Center the image */
+    }
+
+    .social-links {
+        flex-direction: row; /* Align links horizontally */
+        justify-content: center; /* Center the links */
+        gap: 1rem; /* Add spacing between links */
+    }
+
+    .about-right {
+        font-size: 1rem; /* Adjust font size for readability */
+        line-height: 1.5; /* Adjust line height */
+    }
+
+    .badges {
+        grid-template-columns: repeat(2, 1fr); /* 2 badges per row on small screens */
+        gap: 0.5rem; /* Reduce the gap between badges */
+    }
+
+    .badge-card img {
+        width: 80px; /* Adjust badge size */
+        height: 80px;
+    }
+
+    .resume-download {
+        padding: 0.5rem 1rem; /* Adjust padding */
+        font-size: 0.9rem; /* Adjust font size */
+    }
+}
+
+/* Extra Small Screens (Phones in Portrait Mode) */
+@media (max-width: 480px) {
+    .badges {
+        grid-template-columns: 1fr; /* 1 badge per row on extra-small screens */
+        gap: 0.5rem;
+    }
+
+    .badge-card img {
+        width: 70px;
+        height: 70px;
+    }
+
+    .resume-download {
+        font-size: 0.8rem; /* Further adjust font size */
+        padding: 0.4rem 0.8rem;
+    }
+}

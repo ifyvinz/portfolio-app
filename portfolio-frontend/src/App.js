@@ -18,12 +18,13 @@ import CreateService from './components/CreateService';
 import Login from './components/Login';
 import CreateBadge from './components/CreateBadge';
 
-axios.defaults.baseURL = 'http://18.159.112.61';
+axios.defaults.baseURL = 'https://www.ifyvinz.com/api/';
 
 function App() {
     const [theme, setTheme] = useState('dark');
     const [menuOpen, setMenuOpen] = useState(false);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [csrfToken, setCsrfToken] = useState('');
 
     useEffect(() => {
         const token = localStorage.getItem('token');
@@ -34,17 +35,30 @@ function App() {
         document.body.className = theme;
     }, [theme]);
 
+    const getCsrfToken = () => {
+            const cookieValue = document.cookie
+                .split('; ')
+                .find(row => row.startsWith('csrftoken='))
+                ?.split('=')[1];
+            setCsrfToken(cookieValue);
+        };
+    
+        useEffect(() => {
+            getCsrfToken();
+        }, []);
+    
     const handleLogout = async () => {
         const token = localStorage.getItem('token');
         console.log("Token being sent:", token);
-    
+
         try {
-            const response = await axios.post('http://18.159.112.61/logout/', null, {
+            const response = await axios.post('https://www.ifyvinz.com/api/logout/', null, {
                 headers: {
                     'Authorization': `Token ${token}`,
+                    'X-CSRFToken': csrfToken, // Add the CSRF token to the headers
                 },
             });
-    
+
             console.log("Logout response:", response.data);
             if (response.status === 200) {
                 localStorage.removeItem('token');
@@ -54,8 +68,6 @@ function App() {
             console.error("Error during logout:", error.response?.data || error.message);
         }
     };
-    
-
 
     const toggleTheme = () => {
         setTheme((prevTheme) => (prevTheme === 'light' ? 'dark' : 'light'));
@@ -93,10 +105,19 @@ function App() {
                     <Link to="/blog" onClick={closeMenu}>Blog</Link>
                 </div>
 
-                <div className="nav-right">
-                    <button onClick={toggleTheme} className="theme-toggle-btn">
-                        {theme === 'light' ? '🌙 Dark Mode' : '☀️ Light Mode'}
-                    </button>
+                <div
+                    role="button"
+                    aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
+                    tabIndex={0}
+                    onClick={toggleTheme}
+                    onKeyDown={(e) => {
+                        if (e.key === 'Enter' || e.key === ' ') {
+                            toggleTheme();
+                        }
+                    }}
+                    className="theme-toggle-btn"
+                >
+                    {theme === 'light' ? '🌙 ' : '☀️ '}
                 </div>
             </nav>
 
@@ -113,13 +134,11 @@ function App() {
                     <Route path="/blog" element={<Blog />} />
                     <Route path="/blog/:id" element={<BlogDetail />} />
                     <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn} />} />
-
                     <Route path="/edit-profile" element={<EditProfile />} />
                     <Route path="/create-blog" element={<CreateBlog />} />
                     <Route path="/create-portfolio" element={<CreatePortfolio />} />
                     <Route path="/create-service" element={<CreateService />} />
                     <Route path="/create-badge" element={<CreateBadge />} />
-
                 </Routes>
             </div>
 

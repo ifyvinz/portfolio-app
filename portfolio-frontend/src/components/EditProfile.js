@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate
 import '../css/EditProfile.css';
 
-axios.defaults.baseURL = 'http://18.159.112.61';
+//axios.defaults.baseURL = 'https://www.ifyvinz.com/api/';
 
 const EditProfile = () => {
     const [about, setAbout] = useState('');
@@ -13,14 +13,29 @@ const EditProfile = () => {
     const [linkedln, setLinkedln] = useState('');
     const [twitter, setTwitter] = useState('');
     const [feedback, setFeedback] = useState({ message: '', type: '' });
+    const [csrfToken, setCsrfToken] = useState('');
 
     const navigate = useNavigate(); // Initialize navigate
+
+    const getCsrfToken = () => {
+            const cookieValue = document.cookie
+                .split('; ')
+                .find(row => row.startsWith('csrftoken='))
+                ?.split('=')[1];
+            setCsrfToken(cookieValue);
+        };
+    
+        useEffect(() => {
+            getCsrfToken();
+        }, []);
+    
+
 
     useEffect(() => {
         const fetchProfile = async () => {
             const token = localStorage.getItem('token');
             try {
-                const response = await axios.get('http://18.159.112.61/profile/', {
+                const response = await axios.get('https://www.ifyvinz.com/api/profile/', {
                     headers: { Authorization: `Token ${token}` }
                 });
                 const profile = response.data;
@@ -47,16 +62,18 @@ const EditProfile = () => {
     
         try {
             const token = localStorage.getItem('token');
-            await axios.put('http://18.159.112.61/edit_profile/', formData, {
+            await axios.put('https://www.ifyvinz.com/api/edit_profile/', formData, {
                 headers: {
                     Authorization: `Token ${token}`,
                     'Content-Type': 'multipart/form-data',
+                    'X-CSRFToken': csrfToken, // Send the CSRF token
                 },
             });
             setFeedback({ message: 'Profile updated successfully!', type: 'success' });
             setTimeout(() => navigate('/'), 2000);
         } catch (error) {
             setFeedback({ message: 'Failed to update profile. Please try again.', type: 'error' });
+            console.log(`Error: ${error}`)
         }
     };
     

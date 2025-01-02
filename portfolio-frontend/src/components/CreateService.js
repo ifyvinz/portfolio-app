@@ -1,16 +1,32 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 //import instance from '../axiosInstance';
 import axios from 'axios';
 import '../css/CreateService.css';
 
-axios.defaults.baseURL = 'http://18.159.112.61';
+axios.defaults.baseURL = 'https://www.ifyvinz.com/api/';
 function CreateService() {
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
     const [photo, setPhoto] = useState(null);
     const [message, setMessage] = useState('');
+    const [csrfToken, setCsrfToken] = useState('');
+
     const navigate = useNavigate(); // Initialize navigate
+
+    const getCsrfToken = () => {
+            const cookieValue = document.cookie
+                .split('; ')
+                .find(row => row.startsWith('csrftoken='))
+                ?.split('=')[1];
+            setCsrfToken(cookieValue);
+        };
+    
+        useEffect(() => {
+            getCsrfToken();
+        }, []);
+    
+
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -23,10 +39,11 @@ function CreateService() {
         console.log('FormData entries:', Array.from(formData.entries())); // Debugging
         try {
             const token = localStorage.getItem('token');
-            const response = await axios.post('http://18.159.112.61/create_service/', formData, {
+            const response = await axios.post('https://www.ifyvinz.com/api/create_service/', formData, {
                 headers: {
                     'Authorization': `Token ${token}`,
                     'Content-Type': 'multipart/form-data',
+                    'X-CSRFToken': csrfToken, // Send the CSRF token
                     
                  },
             });

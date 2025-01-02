@@ -1,23 +1,46 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import '../css/Login.css';
 
-//axios.defaults.baseURL = 'http://18.159.112.61';
+// axios.defaults.baseURL = 'http://18.159.112.61';
 
 const Login = ({ setIsLoggedIn }) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
+    const [csrfToken, setCsrfToken] = useState('');
+    
+    // Fetch the CSRF token from the cookie
+    const getCsrfToken = () => {
+            const cookieValue = document.cookie
+                .split('; ')
+                .find(row => row.startsWith('csrftoken='))
+                ?.split('=')[1];
+            setCsrfToken(cookieValue);
+        };
+    
+        useEffect(() => {
+            getCsrfToken();
+        }, []);
+    
 
     const handleLogin = async (e) => {
         e.preventDefault(); // Prevent default form behavior
         try {
             // Send login request to the backend
-            const response = await axios.post('http://18.159.112.61/login/', {
-                username: username,
-                password: password
-            });
+            const response = await axios.post(
+                'https://www.ifyvinz.com/api/login/',
+                {
+                    username: username,
+                    password: password
+                },
+                {
+                    headers: {
+                        'X-CSRFToken': csrfToken, // Add the CSRF token to the headers
+                    },
+                }
+            );
 
             if (response.status === 200) {
                 const { token, username } = response.data;
@@ -38,7 +61,6 @@ const Login = ({ setIsLoggedIn }) => {
                 console.error('Error setting up request:', error.message);
             }
         }
-        
     };
 
     return (

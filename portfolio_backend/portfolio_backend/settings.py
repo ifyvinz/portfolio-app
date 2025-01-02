@@ -22,7 +22,10 @@ MEDIA_URL = '/media/'
 
 # Path where media is stored
 #MEDIA_ROOT = BASE_DIR / 'media'
+
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+#MEDIA_ROOT = os.path.join(BASE_DIR.parent, 'media')  # For production
+
 
 
 
@@ -30,12 +33,27 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-ray=q=pn3re_h547_lkla&8%m3eenx5r=4=ec&=&yj=n^-*)l7'
+SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+#DEBUG = True
+DEBUG=False
+#ALLOWED_HOSTS = ['www.ifyvinz.com', 'ifyvinz.com', 'localhost', '127.0.0.1', 'app', '0.0.0.0']
+#ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS", "localhost 127.0.0.1",).split(" ")
+#ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS", "ifyvinz.com 18.159.112.61",).split(" ")
+ALLOWED_HOSTS = [
+    "app_app_1",  # Internal Docker container name
+    "18.159.112.61",  # Public IP
+    "ec2-18-159-112-61.eu-central-1.compute.amazonaws.com",  # EC2 public DNS
+    "ifyvinz.com",  # Your domain
+    "www.ifyvinz.com",  # Subdomain
+    "localhost",
+    "127.0.0.1",
+    "admin.ifyvinz.com",
+]
 
-ALLOWED_HOSTS = []
+
+#ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -48,12 +66,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-     
+
     'corsheaders',
     'rest_framework',
     'markdownx',
     'rest_framework.authtoken',
-    
+
 ]
 
 MIDDLEWARE = [
@@ -68,7 +86,32 @@ MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
 ]
 
-CORS_ALLOW_ALL_ORIGINS = True  # Or set specific domains for production
+#CORS_ALLOW_ALL_ORIGINS = True  # Or set specific domains for production
+
+CORS_ALLOWED_ORIGINS = [
+    "https://www.ifyvinz.com",
+    "https://ifyvinz.com",
+    "http://localhost",
+    "http://ec2-18-159-112-61.eu-central-1.compute.amazonaws.com",
+    "http://127.0.0.1",
+    "http://18.159.112.61",
+    "http://app_app_1",  # Internal Docker container name
+    "https://d2cva32kzj9cvn.cloudfront.net",  # Removed the trailing slash
+    "http://admin.ifyvinz.com",
+]
+
+CSRF_TRUSTED_ORIGINS = [
+    "https://www.ifyvinz.com",
+    "https://ifyvinz.com",
+    "http://localhost",
+    "http://ec2-18-159-112-61.eu-central-1.compute.amazonaws.com",
+    "http://127.0.0.1",
+    "http://18.159.112.61",
+    "http://app_app_1",  # Internal Docker container name
+    "https://d2cva32kzj9cvn.cloudfront.net",  # Removed the trailing slash
+    "http://admin.ifyvinz.com",
+]
+
 
 ROOT_URLCONF = 'portfolio_backend.urls'
 
@@ -96,25 +139,26 @@ AUTH_USER_MODEL = 'portfolio.User'
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
-
+"""
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
 """
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.environ.get('POSTGRES_DB'),
-        'USER': os.environ.get('POSTGRES_USER'),
-        'PASSWORD': os.environ.get('POSTGRES_PASSWORD'),
-        'HOST': os.environ.get('POSTGRES_HOST', 'db'),  # Name of the Docker service for the database
-        'PORT': os.environ.get('POSTGRES_PORT', '5432'),  # Default PostgreSQL port
+        'NAME': os.getenv('POSTGRES_DB'),
+        'USER': os.getenv('POSTGRES_USER'),
+        'PASSWORD': os.getenv('POSTGRES_PASSWORD'),
+        'HOST': 'db', # Name of the Docker service for the database
+        'PORT': '5432', # Default PostgreSQL port
     }
 }
-"""
+
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -176,5 +220,10 @@ EMAIL_HOST_USER = 'ifyvinz@gmail.com'  # Your Gmail address
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
-
-
+"""
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
+SECURE_BROWSER_XSS_FILTER = True
+SECURE_CONTENT_TYPE_NOSNIFF = True
+SECURE_SSL_REDIRECT = True
+"""

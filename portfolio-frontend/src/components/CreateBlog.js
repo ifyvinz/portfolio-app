@@ -1,17 +1,33 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import '../css/CreateBlog.css';
 
-axios.defaults.baseURL = 'http://18.159.112.61';
+axios.defaults.baseURL = 'https://www.ifyvinz.com/api/';
 
 const CreateBlog = () => {
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
     const [photo, setPhoto] = useState(null);
     const [feedback, setFeedback] = useState({ message: '', type: '' });
+    const [csrfToken, setCsrfToken] = useState('');
 
     const navigate = useNavigate();
+
+    const getCsrfToken = () => {
+            const cookieValue = document.cookie
+                .split('; ')
+                .find(row => row.startsWith('csrftoken='))
+                ?.split('=')[1];
+            setCsrfToken(cookieValue);
+        };
+    
+        useEffect(() => {
+            getCsrfToken();
+        }, []);
+    
+    
+    
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -22,10 +38,11 @@ const CreateBlog = () => {
 
         try {
             const token = localStorage.getItem('token');
-            await axios.post('http://18.159.112.61/create_blog/', formData, {
+            await axios.post('https://www.ifyvinz.com/api/create_blog/', formData, {
                 headers: {
                     'Authorization': `Token ${token}`,
                     'Content-Type': 'multipart/form-data',
+                    'X-CSRFToken': csrfToken, // Send the CSRF token
                 },
             });
             setFeedback({ message: 'Blog created successfully!', type: 'success' });

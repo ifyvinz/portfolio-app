@@ -2,7 +2,7 @@ import '../css/Contact.css';
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-axios.defaults.baseURL = 'http://18.159.112.61';
+axios.defaults.baseURL = 'https://www.ifyvinz.com/api/';
 
 function Contact() {
     const [formData, setFormData] = useState({ name: '', email: '', message: '' });
@@ -33,7 +33,7 @@ function Contact() {
         formDataObj.append('message', formData.message);
         if (file) formDataObj.append('file', file); // Append file if available
 
-        axios.post('http://18.159.112.61/send-email/', formDataObj, {
+        axios.post('https://www.ifyvinz.com/api/send-email/', formDataObj, {
             headers: {
                 'X-CSRFToken': csrfToken, // Send the CSRF token
                 'Content-Type': 'multipart/form-data', // Important for file uploads

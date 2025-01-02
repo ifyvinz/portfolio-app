@@ -3,7 +3,7 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import '../css/LandingPage.css';
 
-axios.defaults.baseURL = 'http://18.159.112.61';
+//axios.defaults.baseURL = 'https://www.ifyvinz.com/api/';
 
 const LandingPage = () => {
     const [profile, setProfile] = useState(null);
@@ -11,7 +11,7 @@ const LandingPage = () => {
     useEffect(() => {
         const fetchProfile = async () => {
             try {
-                const response = await axios.get('http://18.159.112.61/profile/');
+                const response = await axios.get('https://www.ifyvinz.com/api/profile/');
                 setProfile(response.data);
             } catch (error) {
                 console.error("Error fetching profile data:", error);
@@ -25,7 +25,7 @@ const LandingPage = () => {
             {profile ? (
                 <>
                     <div className="profile-photo">
-                        <img src={`http://18.159.112.61${profile.photo}`} alt="Vincent" />
+                        <img src={`https://www.ifyvinz.com${profile.photo}`} alt="Vincent" />
                     </div>
                     <h1 className="mission-message">Creating Solutions from Code to the Cloud</h1>
                     <p className="mission-paragraph">
@@ -33,7 +33,7 @@ const LandingPage = () => {
                     </p>
                     <div className="landing-buttons">
                         {profile.resume && (
-                            <a href={`http://18.159.112.61${profile.resume}`} target="_blank" rel="noopener noreferrer" className="download-resume" download>
+                            <a href={`https://www.ifyvinz.com${profile.resume}`} target="_blank" rel="noopener noreferrer" className="download-resume" download>
                                 Download My Resume
                             </a>
                         )}

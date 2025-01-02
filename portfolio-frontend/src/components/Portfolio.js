@@ -8,7 +8,7 @@ function Portfolio() {
 
     // Fetch portfolio data from API when component mounts
     useEffect(() => {
-        instance.get('http://18.159.112.61/portfolio/')
+        instance.get('https://www.ifyvinz.com/api/portfolio/')
             .then(response => setPortfolios(response.data))
             .catch(error => console.error('Error fetching portfolio:', error));
     }, []);
@@ -28,7 +28,7 @@ function Portfolio() {
                         {/* Render project image */}
                         {portfolio.photo && (
                             <img
-                                src={`http://18.159.112.61${portfolio.photo}`}  // Full image URL
+                                src={`https://www.ifyvinz.com${portfolio.photo}`}  // Full image URL
                                 alt={portfolio.title}  // Alt text for accessibility
                                 style={{ maxWidth: '100%', height: 'auto' }}  // Responsive image styling
                             />

@@ -19,7 +19,7 @@ function PortfolioDetail() {
     // Fetch portfolio data based on the ID from the API
     console.log(id)
     useEffect(() => {
-        instance.get(`http://18.159.112.61/portfolio/${id}/`)
+        instance.get(`https://www.ifyvinz.com/api/portfolio/${id}/`)
             .then(response => {
                 console.log(response.data);  // Debugging to see the response
                 setPortfolio(response.data);
@@ -30,7 +30,7 @@ function PortfolioDetail() {
      // Delete blog post function
      const deletePortfolio = async () => {
         try {
-            await instance.delete(`delete_portfolio/${id}/`);
+            await instance.delete(`https://www.ifyvinz.com/api/delete_portfolio/${id}/`);
             alert('Porfolio post deleted successfully!');
             navigate('/portfolio');
         } catch (error) {
@@ -54,7 +54,7 @@ function PortfolioDetail() {
             {/* Render project image */}
             {portfolio.photo && (
                 <img
-                    src={`http://18.159.112.61${portfolio.photo}`}  // Full image URL
+                    src={`https://www.ifyvinz.com${portfolio.photo}`}  // Full image URL
                     alt={portfolio.title}
                     style={{ maxWidth: '100%', height: 'auto' }}
                 />

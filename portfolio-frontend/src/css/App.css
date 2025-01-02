@@ -78,6 +78,16 @@ body.dark .nav-center a:hover {
   color: #dddde0;
 }
 
+body.light .nav-left a:hover {
+  background-color: #333;
+  color: #dddde0;
+}
+
+body.dark .nav-left a:hover {
+  background-color: #2b3041;
+  color: #dddde0;
+}
+
 
 /* Right Section for Theme Toggle Button */
 .nav-right {
@@ -106,7 +116,7 @@ body.dark nav a {
   color: #e0e0e0;
 }
 
-body.light nav a:hover {
+/*body.light nav a:hover {
   background-color: #333;
   color: #dddde0;
 }
@@ -114,36 +124,34 @@ body.light nav a:hover {
 body.dark nav a:hover {
   background-color: #2b3041;
   color: #dddde0;
-}
+}*/
+
+
 
 /* Theme toggle button styling */
-.theme-toggle-btn {
-  background: transparent;
-  border: none;
-  font-size: 1.1rem;
-  cursor: pointer;
-  transition: color 0.3s ease;
-}
-
-/* Light theme button color */
+/* Light theme button */
 body.light .theme-toggle-btn {
   color: #333;
-}
-
-body.dark .theme-toggle-btn {
-  color: #e0e0e0;
+  border-color: #333;
 }
 
 body.light .theme-toggle-btn:hover {
   background-color: #333;
-  color: #dddde0;
+  color: #fff;
+  cursor: pointer;
+}
+
+/* Dark theme button */
+body.dark .theme-toggle-btn {
+  color: #e0e0e0;
+  border-color: #e0e0e0;
 }
 
 body.dark .theme-toggle-btn:hover {
   background-color: #21a1f1;
-  color: #dddde0;
+  color: #fff;
+  cursor: pointer;
 }
-
 
 /* Container Styling */
 .container {
@@ -209,6 +217,9 @@ nav {
   z-index: 1000;
 }
 
+
+
+/* Mobile View Updates */
 @media (max-width: 768px) {
   .hamburger-menu {
     display: block;
@@ -233,4 +244,27 @@ nav {
     transform: translateY(0);
     opacity: 1;
   }
+
+body.light .nav-center a {
+    color: #ffffff; /* Makes text white for readability */
+  }
+
+.theme-toggle-btn {
+    font-size: 1.4rem;
+    padding: 0.7rem 1.2rem;
+    border-radius: 6px;
+    
 }
+
+
+
+  /*.nav-left a, .nav-right a:hover {
+    background-color: transparent !important;
+    color: inherit;
+  }*/
+  /*body.dark .nav-center a:hover {
+    background-color: #2b3041;
+    color: #dddde0;
+  }*/
+}
+

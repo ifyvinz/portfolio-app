@@ -19,7 +19,7 @@ function BlogDetail() {
 
     // Fetch the blog post details based on the ID from the API
     useEffect(() => {
-        instance.get(`http://18.159.112.61/blogposts/${id}/`)
+        instance.get(`https://www.ifyvinz.com/api/blogposts/${id}/`)
             .then(response => setBlog(response.data))
             .catch(error => console.error('Error fetching blog post details:', error));
     }, [id]);
@@ -27,7 +27,7 @@ function BlogDetail() {
     // Delete blog post function
     const deleteBlogPost = async () => {
         try {
-            await instance.delete(`delete_blog/${id}/`);
+            await instance.delete(`https://www.ifyvinz.com/api/delete_blog/${id}/`);
             setFeedback({ message: 'Blog post successfully deleted!', type: 'success' });
             navigate('/blog');
         } catch (error) {
@@ -46,7 +46,7 @@ function BlogDetail() {
             {feedback.message && <p className={`feedback ${feedback.type}`}>{feedback.message}</p>}
             {blog.photo && (
                 <img
-                    src={`http://18.159.112.61${blog.photo}`}
+                    src={`https://www.ifyvinz.com${blog.photo}`}
                     alt={blog.title}
                     className="blog-image"
                 />

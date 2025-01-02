@@ -38,6 +38,7 @@ body.dark .footer-section {
     margin-bottom: 1.5rem;
 }
 
+
 .footer-link {
     font-size: 1.1rem;
     text-decoration: none;
@@ -48,11 +49,11 @@ body.dark .footer-section {
 }
 
 /* Styling for Login/Logout */
-.login-btn {
+/*.login-btn {
     background-color: #4caf50;
     color: white;
     border: none;
-}
+}*/
 
 .logout-btn {
     background-color: #f44336;
